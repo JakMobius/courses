@@ -1,0 +1,7 @@
+.idea
+.vscode
+.DS_Store
+*-class.pdf
+*.un~
+a.out*
+build
