@@ -7,14 +7,16 @@
 #show: theme
 
 #title-slide[
-  #align(horizon + center)[
-    = АКОС
+    #align(horizon + center)[
+      = АКОС
 
-    МФТИ
+      МФТИ
 
-    12 сентября, 2024
+      12 сентября, 2024
+    ]
   ]
-]
+
+#show: enable-handout
 
 #slide[
   #let row(image-path, link-url, link-text) = [

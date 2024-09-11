@@ -2,7 +2,7 @@
 #import "@preview/polylux:0.3.1": *
 #import "@local/svg-emoji:0.1.0": setup-emoji
 
-#let theme(term) = {
+#let theme(content) = {
   set page(paper: "presentation-16-9")
   set text(font: "Roboto")
 
@@ -33,11 +33,15 @@
     underline[#text(blue)[#this]]
   }
 
+  content
+}
+
+#let enable-handout(content) = {
   if sys.inputs.at("handout", default: none) == "true" [
     #enable-handout-mode(true)
   ]
 
-  term
+  content
 }
 
 #let m-dark-teal = rgb(9, 135, 181)
