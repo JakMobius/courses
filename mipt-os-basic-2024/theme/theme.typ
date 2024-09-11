@@ -1,5 +1,44 @@
 
 #import "@preview/polylux:0.3.1": *
+#import "@local/svg-emoji:0.1.0": setup-emoji
+
+#let theme(term) = {
+  set page(paper: "presentation-16-9")
+  set text(font: "Roboto")
+
+  // Fix list marker baseline
+  show list.item: it => {
+    let current-marker = if type(list.marker) == array {
+      list.marker.at(0)
+    } else {
+      list.marker
+    }
+    let hanging-indent = measure(current-marker).width + .6em + .3pt
+    set terms(hanging-indent: hanging-indent)
+    if type(list.marker) == array {
+      terms.item(current-marker, {
+        // set the value of list.marker in a loop
+        set list(marker: list.marker.slice(1) + (list.marker.at(0),))
+        it.body
+      })
+    } else {
+      terms.item(current-marker, it.body)
+    }
+  }
+  set par(leading: 8pt)
+
+  show: setup-emoji
+
+  show link: this => {
+    underline[#text(blue)[#this]]
+  }
+
+  if sys.inputs.at("handout", default: none) == "true" [
+    #enable-handout-mode(true)
+  ]
+
+  term
+}
 
 #let m-dark-teal = rgb(9, 135, 181)
 #let m-extra-light-gray = white.darken(2%)
@@ -135,3 +174,34 @@
     },
   )
 }
+
+#let white-box(content, inset: (x: 15pt, y: 10pt)) = {
+  box(
+    fill: rgb(240, 240, 240), inset: inset, radius: 10pt, content, stroke: 2pt + rgb(185, 186, 187),
+  )
+}
+
+#let colbox(color: red, content) = {
+  box(
+    baseline: 0.2em + 4pt, inset: (x: 10pt, y: 10pt), radius: 5pt, fill: color,
+  )[
+    #set text(fill: white, font: "Roboto")
+    #content
+  ]
+}
+
+#let codebox(lang: none, prefix: none, content) = {
+  box(
+    baseline: 0.1em + 5pt, inset: (x: 8pt, y: 8pt), radius: 5pt, fill: rgb(60, 60, 60),
+  )[
+    #set text(baseline: -1pt)
+    #if prefix != none [
+      #prefix
+    ]
+    #set text(fill: white)
+    #set raw(theme: "../theme/halcyon.tmTheme")
+    #raw(lang: lang, content)
+  ]
+}
+
+#let bash(code) = codebox(lang: "bash", prefix: text(fill: green)[`$`], code)

@@ -1,42 +1,10 @@
-// Get Polylux from the official package repository
+
 #import "@preview/polylux:0.3.1": *
 #import "@preview/cetz:0.2.2"
 #import "../theme/theme.typ": *
-#import "@local/svg-emoji:0.1.0": setup-emoji
-#import "@preview/cades:0.3.0": qr-code
+#import "./utils.typ": draw-compiler-lifecycle
 
-#set page(paper: "presentation-16-9")
-#set text(font: "Roboto")
-
-// Fix list marker baseline
-#show list.item: it => {
-  let current-marker = if type(list.marker) == array {
-    list.marker.at(0)
-  } else {
-    list.marker
-  }
-  let hanging-indent = measure(current-marker).width + .6em + .3pt
-  set terms(hanging-indent: hanging-indent)
-  if type(list.marker) == array {
-    terms.item(
-      current-marker,
-      {
-        // set the value of list.marker in a loop
-        set list(marker: list.marker.slice(1) + (list.marker.at(0),))
-        it.body
-      },
-    )
-  } else {
-    terms.item(current-marker, it.body)
-  }
-}
-#set par(leading: 8pt)
-
-#show: setup-emoji
-
-#show link: this => {
-  underline[#text(blue)[#this]]
-}
+#show: theme
 
 #title-slide[
   #align(horizon + center)[
@@ -44,17 +12,17 @@
 
     МФТИ
 
-    05 сентября, 2024
+    12 сентября, 2024
   ]
 ]
 
-#let white-box(content, inset: (x: 15pt, y: 10pt)) = {
-  box(
-    fill: rgb(240, 240, 240), inset: inset, radius: 10pt, content, stroke: 2pt + rgb(185, 186, 187),
-  )
-}
-
 #slide[
+  #let row(image-path, link-url, link-text) = [
+    #white-box[
+      #box(baseline: 7pt)[#image(image-path, width: 30pt)]
+      #link(link-url)[#link-text]
+    ]
+  ]
   #align(center + horizon)[
     Ваш семинарист:
 
@@ -65,18 +33,10 @@
 
   #uncover((beginning: 3))[
     #place(bottom)[
-      #white-box[
-        #box(baseline: 7pt)[#image("img/mail.png", width: 30pt)]
-        #link("klimov.aiu@phystech.edu")
-      ]
+      #row("img/mail.png", "klimov.aiu@phystech.edu")[*klimov.aiu\@phystech.edu*]
     ]
     #place(bottom + right)[
-      #white-box[
-        #box(baseline: 7pt)[#image("img/telegram.png", width: 30pt)]
-        #link("t.me/prostokvasha")[
-          #"@prostokvasha"
-        ]
-      ]
+      #row("img/telegram.png", "t.me/prostokvasha")[*\@prostokvasha*]
     ]
   ]
 ]
@@ -87,7 +47,7 @@
     === Морозов Артемий Андреевич
     #box(baseline: 7pt, image("img/telegram.png", width: 30pt))
     #link("t.me/tokreal")[
-      #"@tokreal"
+      *\@tokreal*
     ]
   ]
 
@@ -95,7 +55,7 @@
     === Бояров Алексей Алексеевич
     #box(baseline: 7pt, image("img/telegram.png", width: 30pt))
     #link("t.me/simpleus")[
-      #"@simpleus"
+      *\@simpleus*
     ]
   ]
 ]
@@ -106,7 +66,9 @@
   ]
 ]
 
-#slide(header: [АКОС поможет вам глубже понимать вот это:], place-location: horizon + center)[
+#slide(
+  header: [АКОС поможет вам глубже понимать вот это:], place-location: horizon + center,
+)[
   #set text(size: 25pt)
   #cetz.canvas(
     length: 1cm, {
@@ -159,45 +121,34 @@
   #text(size: 40pt)[*Мотивационный пример*]
 ]
 
-#let shell(lang: none, prefix: text(fill: green)[`$`], content) = {
-  box(
-    baseline: 0.2em + 4pt, inset: (x: 8pt, y: 8pt), radius: 5pt, fill: rgb(60, 60, 60),
-  )[
-    #if prefix != none [
-      #prefix
-    ]
-    #set text(fill: white)
-    #set raw(theme: "../theme/halcyon.tmTheme")
-    #raw(lang: lang, content)
-  ]
-}
-
 #slide(header: [Общие утилиты], place-location: horizon)[
-  - #shell(lang: "bash", "man") : мануалы по чему угодно;
-    - #shell(lang: "bash", "man man") : мануалы по мануалам;
-  - #shell(lang: "bash", "touch") : создать файл;
-  - #shell(lang: "bash", "mkdir") : создать директорию;
-  - #shell(lang: "bash", "pwd") : вывести текущую директорию.
-  - #shell(lang: "bash", "cd") : сменить директорию;
-  - #shell(lang: "bash", "ls") : вывести содержимое директории.
+  - #bash("man") : мануалы по чему угодно;
+    - #bash("man man") : мануалы по мануалам;
+  - #bash("touch") : создать файл;
+  - #bash("mkdir") : создать директорию;
+  - #bash("pwd") : вывести текущую директорию.
+  - #bash("cd") : сменить директорию;
+  - #bash("ls") : вывести содержимое директории.
 ]
 
-#slide(header: [Работа с файлами], place-location: horizon)[
-  - #shell(lang: "bash", "nano") , #shell(lang: "bash", "micro") , #shell(lang: "bash", "vim") , #shell(lang: "bash", "emacs") : редакторы
+#slide(
+  header: [Работа с файлами], place-location: horizon,
+)[
+  - #bash("nano") , #bash("micro") , #bash("vim") , #bash("emacs") : редакторы
     текста;
-  - #shell(lang: "bash", "less") : быстрая навигация по файлу;
-  - #shell(lang: "bash", "cat") : вывести содержимое файла;
-  - #shell(lang: "bash", "grep") : найти какой-то текст в файле (директории);
-  - #shell(lang: "bash", "find") : искать файлы по имени / дате создания / ...;
-  - #shell(lang: "bash", "mv") : переместить / переименовать файл;
-  - #shell(lang: "bash", "rm") : удалить файл / директорию.
+  - #bash("less") : быстрая навигация по файлу;
+  - #bash("cat") : вывести содержимое файла;
+  - #bash("grep") : найти какой-то текст в файле (директории);
+  - #bash("find") : искать файлы по имени / дате создания / ...;
+  - #bash("mv") : переместить / переименовать файл;
+  - #bash("rm") : удалить файл / директорию.
 ]
 
 #slide(header: [Что делает нас программистами], place-location: horizon)[
-  - #shell(lang: "bash", "gcc") , #shell(lang: "bash", "clang") : компиляторы;
-  - #shell(lang: "bash", "gdb") , #shell(lang: "bash", "lldb") : отладчики;
-  - #shell(lang: "bash", "ld") : компоновщик;
-  - #shell(lang: "bash", "strace") : перехватчик системных вызовов.
+  - #bash("gcc") , #bash("clang") : компиляторы;
+  - #bash("gdb") , #bash("lldb") : отладчики;
+  - #bash("ld") : компоновщик;
+  - #bash("strace") : перехватчик системных вызовов.
 ]
 
 #focus-slide[
@@ -206,89 +157,9 @@
   #text(size: 20pt)[Это кажется неудобным только первый год.]
 ]
 
-#let draw-compiler-lifecycle(arr) = {
-  let margin = -1.5
-  let arrow-top = 5.5
-  let arrow-bottom = 4.5
-  let arrow-shortage = 1.4
-
-  let anchor-prev = 0
-  let x = 0
-  let i = 0
-
-  cetz.draw.set-style(mark: (end: ">"), stroke: 3pt + black)
-
-  for step in arr {
-    let background-color = color.mix((step.color, 20%), (white, 80%))
-    let stroke-color = color.mix((step.color, 50%), (black, 50%))
-    let text-color = stroke-color
-    let has-code = step.at("code", default: none) != none
-    let lower-boundary = 0
-
-    if has-code {
-      lower-boundary = 1.4
-    }
-
-    let y = 0
-
-    if calc.rem(i, 2) == 0 {
-      y = 6
-    }
-
-    cetz.draw.content(
-      (x, y + 4), (x + step.width, y), padding: 0,
-    )[
-      #box(
-        fill: background-color, radius: 20pt, width: 100%, height: 100%, stroke: 1pt + stroke-color,
-      )
-    ]
-
-    cetz.draw.content(
-      (x, y + 4), (x + step.width, y + lower-boundary), padding: 0,
-    )[
-      #set text(fill: text-color, size: 18pt)
-      #box(
-        width: 100%, height: 100%, inset: (left: 7pt, top: 7pt, right: 7pt, bottom: 0pt),
-      )[
-        #align(center + horizon)[
-          #step.text
-        ]
-      ]
-    ]
-
-    if has-code {
-      cetz.draw.content(
-        (x, y + lower-boundary), (x + step.width, y), padding: 0,
-      )[
-        #set text(fill: text-color, font: "Monaco", size: 18pt)
-        #box(
-          width: 100%, height: 100%, inset: (left: 7pt, top: 0pt, right: 7pt, bottom: 7pt),
-        )[
-          #align(center + horizon)[
-            #shell(lang: "bash", step.code)
-          ]
-        ]
-      ]
-    }
-
-    let anchor = x + step.width / 2 - arrow-shortage
-
-    if x != 0 {
-      if calc.rem(i, 2) == 0 {
-        cetz.draw.line((anchor-prev, arrow-bottom), (anchor, arrow-top))
-      } else {
-        cetz.draw.line((anchor-prev, arrow-top), (anchor, arrow-bottom))
-      }
-    }
-
-    anchor-prev = x + step.width / 2 + arrow-shortage
-
-    x = x + margin + step.width
-    i = i + 1
-  }
-}
-
-#slide(header: [Как работает GCC], place-location: horizon + center)[
+#slide(
+  header: [Как работает GCC], place-location: horizon + center,
+)[
   #cetz.canvas(
     length: 1cm, {
       import cetz.draw: *
@@ -298,9 +169,13 @@
       )
 
       let arr = (
-        (text: "Исходный код", color: blue, width: 5), (
-          text: "Код без директив препроцессора", code: "gcc -E", color: black, width: 7,
-        ), (text: "Ассемблерный код", code: "gcc -S", color: black, width: 7), (text: "Объектный файл", code: "gcc -c", color: black, width: 5), (text: "Исполняемый файл", color: blue, width: 6),
+        (text: "Исходный код", color: blue, width: 5), //
+        (
+          text: "Код без директив препроцессора", code: bash("gcc -E"), color: black, width: 7,
+        ), //
+        (text: "Ассемблерный код", code: bash("gcc -S"), color: black, width: 7), //
+        (text: "Объектный файл", code: bash("gcc -c"), color: black, width: 5), //
+        (text: "Исполняемый файл", color: blue, width: 6), //
       )
 
       draw-compiler-lifecycle(arr)
@@ -308,7 +183,9 @@
   )
 ]
 
-#slide(header: [Как работает Clang], place-location: horizon + center)[
+#slide(
+  header: [Как работает Clang], place-location: horizon + center,
+)[
   #cetz.canvas(
     length: 1cm, {
       import cetz.draw: *
@@ -318,11 +195,15 @@
       )
 
       let arr = (
-        (text: "Исходный код", color: blue, width: 5), (
-          text: "Код без директив препроцессора", code: "clang -E", color: black, width: 7,
-        ), (
-          text: "Байткод LLVM", code: "clang -S -emit-llvm", color: black, width: 9,
-        ), (text: "Объектный файл", code: "clang -c", color: black, width: 5), (text: "Исполняемый файл", color: blue, width: 6),
+        (text: "Исходный код", color: blue, width: 5), //
+        (
+          text: "Код без директив препроцессора", code: bash("clang -E"), color: black, width: 7,
+        ), //
+        (
+          text: "Байткод LLVM", code: bash("clang -S -emit-llvm"), color: black, width: 9,
+        ), //
+        (text: "Объектный файл", code: bash("clang -c"), color: black, width: 5), //
+        (text: "Исполняемый файл", color: blue, width: 6), //
       )
 
       draw-compiler-lifecycle(arr)
@@ -330,9 +211,11 @@
   )
 ]
 
-#slide(header: [Директивы препроцессора], place-location: horizon, background-image: none)[
+#slide(
+  header: [Директивы препроцессора], place-location: horizon, background-image: none,
+)[
 
-  #code(numbers: true)[```c
+#code(numbers: true)[```c
     #define MACRO 42               // Определение макросов
     #include "my-header.h"         // Включение других файлов с кодом
 
@@ -347,7 +230,7 @@
     #endif
     ```]
 
-  Макросы также можно определять флагами компилятора: #shell(lang: "bash", "gcc -D<MACRO_NAME>[=VALUE] ...")
+Макросы также можно определять флагами компилятора: #bash("gcc -D<MACRO_NAME>[=VALUE] ...")
 ]
 
 #slide(header: [Хитрости с препроцессором], background-image: none)[
@@ -369,48 +252,57 @@
   }
   ```]
 
-#shell(prefix: none, "main.c:12: Fatal error: Cannot allocate memory")
+#codebox("main.c:12: Fatal error: Cannot allocate memory")
 ]
 
-#slide(header: [Исполняемые файлы], place-location: horizon)[
+#slide(
+  header: [Исполняемые файлы], place-location: horizon,
+)[
   Файл считается *исполняемым*, если он имеет права на исполнение. Linux *не
   смотрит на расширение*.
 
   Чтобы понять, как запускать файл, Linux смотрит на его начало:
 
-  - #shell(prefix: none, "0x7f 0x45 0x4c 0x46") : магический заголовок ELF-файла;
+  - #codebox("0x7f 0x45 0x4c 0x46") : магический заголовок ELF-файла;
 
-  - #shell(prefix: none, "#!/usr/bin/python3") : shebang, указывает на интерпретатор;
+  - #codebox("#!/usr/bin/python3") : shebang, указывает на интерпретатор;
 
   - Ни то, ни другое - файл запускается как шелл-скрипт.
 ]
 
-#slide(header: [#emoji.sparkles Магические заголовки #emoji.sparkles], place-location: horizon + center)[
+#slide(
+  header: [#emoji.sparkles Магические заголовки #emoji.sparkles], place-location: horizon + center,
+)[
+  #let formats = (
+    (".png", "89 50 4E 47 0D 0A 1A 0A"), (".gif", "GIF87a, GIF89a"), (".jpg, .jpeg", "FF D8 FF"), (".rar", "52 61 72 21 1A 07"), (".pdf", "25 50 44 46 2D"),
+  )
+
+  #let rows = formats.map(
+    line => (
+      text(font: "Monaco")[#line.at(0)], line.at(1).split(", ").map(code => codebox(code)).join(" , "),
+    ),
+  ).flatten()
+
   #table(
-    columns: (auto, auto), inset: (x: 20pt, y: 10pt), align: horizon, table.header([*Формат*], [*Заголовок*]), text(font: "Monaco")[.png], [#shell(prefix: none, "89 50 4E 47 0D 0A 1A 0A")], text(font: "Monaco")[.gif], [#shell(prefix: none, "GIF87a") , #shell(prefix: none, "GIF89a")], text(font: "Monaco")[.jpg, .jpeg], [#shell(prefix: none, "FF D8 FF")], text(font: "Monaco")[.rar], [#shell(prefix: none, "52 61 72 21 1A 07")], text(font: "Monaco")[.pdf], [#shell(prefix: none, "25 50 44 46 2D")],
+    columns: (auto, auto), inset: (x: 20pt, y: 10pt), align: horizon, table.header([*Формат*], [*Заголовок*]), ..rows,
   )
 
   #white-box[
-    #link("https://en.wikipedia.org/wiki/List_of_file_signatures")
+    🔗 #link(
+      "https://en.wikipedia.org/wiki/List_of_file_signatures",
+    )[*wikipedia.org/wiki/List_of_file_signatures*]
   ]
 ]
 
-#let colbox(color: red, content) = {
-    box(
-    baseline: 0.2em + 4pt, inset: (x: 10pt, y: 10pt), radius: 5pt, fill: color,
-  )[
-    #set text(fill: white, font: "Roboto")
-    #content
-  ]
-}
-
-#slide(header: [Автоматизация сборки], place-location: horizon, background-image: none)[
-
-  *Утилита #shell(lang: "bash", "make")*:
+#slide(
+  header: [Автоматизация сборки: #bash("make")], place-location: horizon, background-image: none,
+)[
   - Отслеживает даты изменений файлов;
   - Пересобирает то, что устарело, пользуясь явным деревом зависимостей.
 
-  #uncover((beginning: 2))[
+  #uncover(
+    (beginning: 2),
+  )[
     *#colbox(color: green)[Плюсы:]*
 
     - Пересобирает только то, что нужно;
@@ -426,9 +318,9 @@
   ]
 ]
 
-#slide(header: [Автоматизация сборки], place-location: horizon, background-image: none)[
-
-  *Утилита #shell(lang: "bash", "cmake")*:
+#slide(
+  header: [Автоматизация сборки: #bash("cmake")], place-location: horizon, background-image: none,
+)[
   - Скриптоподобный язык для генерации схем сборки.
 
   #uncover((beginning: 2))[
@@ -447,13 +339,15 @@
   ]
 ]
 
-#slide(header: [Рекомендации по написанию кода], place-location: horizon, background-image: none)[
+#slide(
+  header: [Рекомендации по написанию кода], place-location: horizon, background-image: none,
+)[
   - Code Style может быть любым, главное - *консистентным*;
 
   #set par(leading: 12pt)
 
   #uncover((beginning: 1))[
-    - #shell(lang: "bash", "clang-format") поможет следить за этим;
+    - #bash("clang-format") поможет следить за этим;
   ]
 
   #uncover((beginning: 2))[
@@ -466,8 +360,10 @@
       - За наличием комментариев в нетривиальных местах.
   ]
 
-  #uncover((beginning: 3))[
-    - Умные IDE и #shell(lang: "bash", "clang-tidy") могут помочь и с этим, но лучше следить самим;
+  #uncover(
+    (beginning: 3),
+  )[
+    - Умные IDE и #bash("clang-tidy") могут помочь и с этим, но лучше следить самим;
   ]
 
   #uncover((beginning: 4))[
@@ -475,47 +371,199 @@
   ]
 ]
 
-#slide(header: [Инструменты дебага], place-location: horizon)[
+#slide(
+  header: [Инструменты дебага], place-location: horizon,
+)[
   #set image(width: 40pt);
   #set box(baseline: 15pt);
 
-  #box[#image("img/weak-doge.png")] #shell(lang: "c", prefix: none, "printf(\"debug 374\\n\")") : конечно, способ;
+  #box[#image("img/weak-doge.png")] #codebox(lang: "c", "printf(\"debug 374\\n\")") :
+  конечно, способ;
 
   #set image(width: 60pt);
 
-  #uncover((beginning: 2))[
+  #uncover(
+    (beginning: 2),
+  )[
     Но куда проще использовать:
 
-    #box(baseline: 25pt, inset: (x: 10pt))[#image("img/strong-doge-2.png")] #shell(lang: "bash", "strace") : перехватчик системных вызовов;
+    #box(baseline: 25pt, inset: (x: 10pt))[#image("img/strong-doge-2.png")] #bash("strace") :
+    перехватчик системных вызовов;
 
-    #box(baseline: 25pt, inset: (x: 10pt))[#image("img/strong-doge.png")] #shell(lang: "bash", "gdb") или #shell(lang: "bash", "lldb") : отладчики для пошагового выполнения программы.
+    #box(baseline: 25pt, inset: (x: 10pt))[#image("img/strong-doge.png")] #bash("gdb") или #bash("lldb") :
+    отладчики для пошагового выполнения программы.
   ]
 ]
 
-#slide(header: [Как пользоваться gdb], place-location: horizon, background-image: none)[
-  - Запуск отладочной консоли: #shell(lang: "bash", "gdb a.out");
-    - #shell(prefix: none, lang: "bash", "run") : запустить программу;
-    - #shell(prefix: none, lang: "bash", "break <where>") : поставить точку останова;
-    - #shell(prefix: none, lang: "bash", "next") : выполнить следующую строку;
-    - #shell(prefix: none, lang: "bash", "step") : войти в процедуру;
-    - #shell(prefix: none, lang: "bash", "print <expression>") : вывести значение выражения;
-    - #shell(prefix: none, lang: "bash", "quit") : выйти из gdb.
-  - Команды можно сокращать: (#shell(prefix:none, "r") , #shell(prefix:none, "b") , #shell(prefix:none, "n") , #shell(prefix:none, "p") , #shell(prefix:none, "q"))
-  - #link("https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf")[GDB cheat-sheet]
-  #colbox(color: gray)[⚠️] Нужно сгенерировать отладочную информацию: #shell(lang: "bash", "gcc -g main.c");
+#slide(
+  header: [Как пользоваться gdb], place-location: horizon, background-image: none,
+)[
+  - Запуск отладочной консоли: #bash("gdb ./a.out");
+    - #codebox(lang: "bash", "run") : запустить программу;
+    - #codebox(lang: "bash", "break <where>") : поставить точку останова;
+    - #codebox(lang: "bash", "next") : выполнить следующую строку;
+    - #codebox(lang: "bash", "step") : войти в процедуру;
+    - #codebox(lang: "bash", "print <expression>") : вывести значение выражения;
+    - #codebox(lang: "bash", "quit") : выйти из gdb.
+  #let prefixes = ("r", "b", "n", "p", "q")
+  - Команды можно сокращать: (#prefixes.map(p => codebox(p)).join(" , "));
+  - #link(
+      "https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf",
+    )[🔗 *GDB cheat-sheet*].
+  #colbox(color: gray)[⚠️] Нужно сгенерировать отладочную информацию: #bash("gcc -g main.c");
 ]
 
-#slide(header: [Как пользоваться strace], place-location: horizon, background-image: none)[
-  - Запуск программы с помощью strace: #shell(lang: "bash", "strace ./a.out");
+#slide(
+  header: [Как пользоваться strace], place-location: horizon, background-image: none,
+)[
+  - Запуск программы с помощью strace: #bash("strace ./a.out");
   - Основные команды:
-    - #shell(lang: "bash", "strace -e trace=open,exec,... ./a.out") : фильтрация системных вызовов;
-    - #shell(lang: "bash", "strace -e trace=file ./a.out") : отслеживать только работу с файлами;
-    - #shell(lang: "bash", "strace -p <pid>") : подключиться к уже запущенному процессу;
-    - #shell(lang: "bash", "strace -o output.txt ./a.out") : сохранить вывод в файл;
-    - #shell(lang: "bash", "strace -c ./a.out") : собрать статистику по системным вызовам;
-  - #link("https://strace.io/")[Strace docs]
+    - #bash("strace -e trace=open,exec,... ./a.out") : фильтрация системных вызовов;
+    - #bash("strace -e trace=%file ./a.out") : отслеживать только работу с файлами;
+    - #bash("strace -p <pid>") : подключиться к уже запущенному процессу;
+    - #bash("strace -o output.txt ./a.out") : сохранить вывод в файл;
+    - #bash("strace -c ./a.out") : собрать статистику по системным вызовам;
+
+  - #link("https://strace.io/")[🔗 *Strace docs*]
+]
+
+#slide(
+  header: "Утечка памяти...",
+  place-location: horizon
+)[
+  *...это потеря указателя на выделенную память:*
+
+  #code[```c
+    char* buffer = calloc(1024, 1);
+    read(input, buffer, 1024);
+    write(output, buffer, 1024);
+    // free(buffer);
+    buffer = NULL;
+  ```]
+
+  #uncover((beginning: 2))[
+
+    *Менее очевидный пример:*
+
+    #code[```c
+      buffer = realloc(buffer, 2048);
+    ```]
+
+  ]
+]
+
+#slide(
+  header: "Утечки файловых дескрипторов",
+  place-location: horizon
+)[
+  #code[```c
+    int file = open("input.txt", O_RDONLY);
+    read(file, buffer, 1024);
+    // close(file)
+    file = open("output.txt", O_WRONLY);
+    write(file, buffer, 1024);
+  ```]
+
+  *Открытые дескрипторы занимают память в ядре, так что это тоже утечка памяти.*
+]
+
+#slide(
+  header: "Чем череваты утечки?",
+  place-location: horizon
+)[
+  - *В утилите, которая работает недолго* - ничем, ресурсы освободятся при завершении программы;
+
+  - *В долгоживущей программе (веб-сервер, игра, ...)* - рано или поздно ресурсы закончатся;
+
+  - *В ядре* - вы повторите судьбу CrowdStrike;
+
+  #uncover((beginning: 2))[
+
+    - *В домашке по АКОСу* - бан.
+  ]
+]
+
+#slide(
+  header: [Поиск утечек памяти: #bash("valgrind")]
+)[
+  - Эмулирует процессор и следит за аллокациями;
+  - Использование: #bash("valgrind your-awesome-program").
+
+  #uncover(
+    (beginning: 2),
+  )[
+    *#colbox(color: green)[Плюсы:]*
+
+    - Находит много других проблем (например, чтение неинициализированной памяти).
+  ]
+
+  #uncover((beginning: 3))[
+    *#colbox(color: red)[Минусы:]*
+
+    - Очень медленный (замедляет в 10-100 раз);
+    - Многопоточные программы становятся однопоточными.
+  ]
+]
+
+#slide(
+  header: [Поиск утечек памяти: LeakSanitizer],
+  background-image: none,
+)[
+  - Санитайзер компилятора #bash("clang");
+  - Встраивает код для отслеживания аллокаций прямо в исполняемый файл;
+  - Использование: #bash("clang -fsanitize=leak").
+
+  #uncover(
+    (beginning: 2),
+  )[
+    *#colbox(color: green)[Плюсы:]*
+
+    - Почти не замедляет программу;
+    - Поддерживает многопоточность.
+  ]
+
+  #uncover((beginning: 3))[
+    *#colbox(color: red)[Минусы:]*
+
+    - Доступен только в #bash("clang");
+    - Использует #codebox("ptrace()") $=>$ не работает под дебаггером, под #bash("strace") , и в некоторых контейнерах.
+  ]
+]
+
+#slide(
+  header: [#codebox("-fsanitize=")]
+)[
+  - #codebox("address") : поиск ошибок использования памяти (переполнения, use-after-free, ...);
+  - #codebox("thread") : поиск гонок;
+  - #codebox("undefined") : поиск неопределённого поведения;
+  - #codebox("memory") : поиск использования неинициализированной памяти;
+  - #codebox("leak") : поиск утечек памяти.
+
+  #colbox(color: red)[⚠️] : *MemorySanitizer и LeakSanitizer доступны только в #bash("clang").*
+
+  #colbox(color: red)[⚠️] : *Не все санитайзеры совместимы друг с другом*
 ]
 
 #focus-slide[
   #text(size: 40pt)[*Интерактив*]
+]
+
+#title-slide[
+  #place(horizon + center)[
+    = Спасибо за внимание!
+  ]
+
+  #place(
+    bottom + center,
+  )[
+    // #qr-code("https://github.com/JakMobius/courses/tree/main/mipt-os-basic-2024", width: 5cm)
+
+    #box(
+      baseline: 0.2em + 4pt, inset: (x: 15pt, y: 15pt), radius: 5pt, stroke: 3pt + rgb(185, 186, 187), fill: rgb(240, 240, 240),
+    )[
+      🔗 #link(
+        "https://github.com/JakMobius/courses/tree/main/mipt-os-basic-2024",
+      )[*github.com/JakMobius/courses/tree/main/mipt-os-basic-2024*]
+    ]
+  ]
 ]
