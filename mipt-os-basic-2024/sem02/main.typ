@@ -382,15 +382,6 @@
   )
 ]
 
-#focus-slide[
-  #only("1")[
-    #text(size: 40pt)[*НћЉЏЄћЇљЏ*]
-  ]
-  #only("2")[
-    #text(size: 40pt)[*Кодировки*]
-  ]
-]
-
 #slide(header: [Further reading], background-image: none, place-location: horizon + center)[
   #set text(size: 30pt)
   🔗 #link(
@@ -400,6 +391,15 @@
   🔗 #link(
     "https://dl.acm.org/doi/pdf/10.1145/93548.93559?download=false",
   )[*Как переводить #codebox("float") в строку*]
+]
+
+#focus-slide[
+  #only("1")[
+    #text(size: 40pt)[*НћЉЏЄћЇљЏ*]
+  ]
+  #only("2")[
+    #text(size: 40pt)[*Кодировки*]
+  ]
 ]
 
 #let special-char-box(color: rgb(60, 60, 60), char) = {
