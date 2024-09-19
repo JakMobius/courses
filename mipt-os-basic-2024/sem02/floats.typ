@@ -145,7 +145,7 @@
     }
   }
 
-  float-construct(
+  (
     sign: bits.at(0),
     mantissa: mantissa,
     exponent: exponent,

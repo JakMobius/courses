@@ -160,11 +160,11 @@
 
     draw-bits-indicators(0, rows.at(2), cell-size, bit-array, theme)
     draw-bits-boxes(0, rows.at(1), cell-size, bit-array, theme, (i, bit) => {
-      set text(weight: "bold")
       let theme = theme(i, bit)
       let mask = calc.pow(2, bit-count - i - 1 - fractional)
       let negative = i == 0 and signed
       let color = if negative { theme.neg-text-color } else { theme.text-color }
+      set text(weight: "bold", fill: color)
 
       if negative [
         -#mask
@@ -377,7 +377,7 @@
     let theme = cell-color(base-color: base-color)
     h(2pt)
     box(
-      fill: theme.background-color, inset: 5pt, stroke: 1pt + theme.stroke-color, baseline: 0.2em,
+      fill: theme.background-color, inset: 5pt, stroke: 1pt + theme.stroke-color, baseline: 5pt,
     )[
       #set text(fill: theme.text-color)
       #content
