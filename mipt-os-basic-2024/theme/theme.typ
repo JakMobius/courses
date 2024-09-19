@@ -67,7 +67,7 @@
           ]
         ]
       }
-    }, margin: (top: 30pt, left: 40pt, bottom: 10pt, right: 30pt),
+    }, margin: (top: 30pt, left: 40pt, bottom: 15pt, right: 30pt),
   )
 
   polylux-slide[
