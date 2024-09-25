@@ -429,7 +429,7 @@
   - #link("https://strace.io/")[🔗 *Strace docs*]
 ]
 
-#slide(
+#slide( 
   header: "Утечка памяти...",
   place-location: horizon
 )[

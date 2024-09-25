@@ -120,6 +120,7 @@
   numberstyle: auto, // style function to apply to line numbers (auto, style)
   firstnumber: 1, // number of the first line (integer)
   highlight: none, // line numbers to highlight (none, array of integer)
+  leading: 0pt,
   content,
 ) = {
   if type(hlcolor) == "auto" {
@@ -167,7 +168,12 @@
         }
       }
       table(
-        stroke: none, columns: columns, rows: (auto,), gutter: 0pt, inset: 5pt, align: (col, _) => align.at(col), fill: (c, row) => if (row / 2 + firstnumber) in highlight { hlcolor } else { none }, ..content
+        stroke: none, 
+        columns: columns, 
+        rows: (auto,), 
+        column-gutter: 0pt,
+        row-gutter: leading, 
+        inset: 5pt, align: (col, _) => align.at(col), fill: (c, row) => if (row / 2 + firstnumber) in highlight { hlcolor } else { none }, ..content
         .text
         .split("\n")
         .enumerate()
@@ -196,7 +202,7 @@
 
 #let codebox(lang: none, prefix: none, content) = {
   box(
-    baseline: 0.1em + 5pt, inset: (x: 8pt, y: 8pt), radius: 5pt, fill: rgb(60, 60, 60),
+    baseline: 5pt + 0.15em, inset: (x: 2pt + 0.2em, y: 3pt + 0.2em), radius: 5pt, fill: rgb(60, 60, 60),
   )[
     #set text(baseline: -1pt)
     #if prefix != none [
