@@ -8,5 +8,5 @@ sem01: .FORCE
 sem02: .FORCE
 	make -C sem02
 
-sem02: .FORCE
+sem03: .FORCE
 	make -C sem03
