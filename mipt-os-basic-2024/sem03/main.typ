@@ -219,24 +219,6 @@
 ]
 
 #slide(
-  header: [#codebox(lang: "c", "fcntl(int fd, int cmd, long arg)")], background-image: none,
-)[
-== Системный вызов управления дескрипторами.
-
-== *#codebox(lang: "c", "int cmd") :*
-
-#set list(marker: `=`)
-- #codebox("F_SETFD") : Установить флаги дескриптора;
-- #codebox("F_SETFL") : Установить флаги статуса;
-- #codebox("F_SETLK") : Установить *блокировку* на файл;
-- #codebox("F_DUPFD") : *Дублировать* дескриптор;
-- #codebox("F_SETSIG") : Получить сигнал, когда будет доступно чтение / запись;
-- #codebox("F_SETPIPE_SZ") : Настроить размер очереди.
-
-== *#codebox(lang: "c", "long arg") :* аргумент, используется в #codebox("F_SET*") -- командах
-]
-
-#slide(
   header: [Чтение и запись], background-image: none, place-location: horizon,
 )[
 
@@ -258,6 +240,39 @@
     - #codebox(lang: "c", "readv(int fd, struct iovec *vector, int count)")
     - #codebox(lang: "c", "writev(int fd, struct iovec *vector, int count)")
   ]
+]
+
+#slide(
+  header: [#codebox(lang: "c", "lseek(int fd, off_t offset, int whence)")], background-image: none,
+)[
+== Настройка позиции файла
+
+== *#codebox(lang: "c", "int whence") :*
+
+#set list(marker: `=`)
+- #codebox("SEEK_SET") : Установить позицию на #codebox("offset") ;
+- #codebox("SEEK_CUR") : Сдвинуть позицию на #codebox("offset") ;
+- #codebox("SEEK_END") : Установить позицию в *конец* и сдвинуть на #codebox("offset") .
+
+== Узнать позицию можно системным вызовом #codebox(lang: "c", "tell(int fd)")
+]
+
+#slide(
+  header: [#codebox(lang: "c", "tell(int fd)")], background-image: none,
+)[
+== Системный вызов управления дескрипторами.
+
+== *#codebox(lang: "c", "int cmd") :*
+
+#set list(marker: `=`)
+- #codebox("F_SETFD") : Установить флаги дескриптора;
+- #codebox("F_SETFL") : Установить флаги статуса;
+- #codebox("F_SETLK") : Установить *блокировку* на файл;
+- #codebox("F_DUPFD") : *Дублировать* дескриптор;
+- #codebox("F_SETSIG") : Получить сигнал, когда будет доступно чтение / запись;
+- #codebox("F_SETPIPE_SZ") : Настроить размер очереди.
+
+== *#codebox(lang: "c", "long arg") :* аргумент, используется в #codebox("F_SET*") -- командах
 ]
 
 #slide(
@@ -810,7 +825,7 @@
   - #codebox("tmpfs") : как #codebox("ramfs") , но со сбросом на swap;
   
   == Общего назначения:
-  
+
   - #codebox("ecryptfs") : хранит файлы в зашифрованном виде;
   - #codebox("unionfs") : объединяет несколько файловых систем вместе;
   - #codebox("overlayfs") : хранит разницу двух файловых систем
@@ -842,10 +857,130 @@
   ]
 ]
 
+#slide(
+  place-location: horizon + center)[
+  #cetz.canvas(length: 1cm, {
+    cetz.draw.content((0, 0), (8, -5))[
+      #let cell-color = cell-color(base-color: blue);
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt)[
+        #align(center + horizon)[
+          #text(size: 30pt, fill: cell-color.stroke-color)[
+            *Ваша программа*
+          ]
+        ]
+      ]
+    ]
+
+    cetz.draw.content((0, -6), (19, -13))[
+      #let cell-color = cell-color(base-color: red);
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt, inset: 20pt)
+    ]
+
+    cetz.draw.content((0, -6), (8, -13))[
+      #let cell-color = cell-color(base-color: red);
+      #align(horizon + center)[
+        #text(size: 30pt, fill: cell-color.stroke-color)[
+          *Ядро*
+        ]
+      ]
+    ]
+
+    cetz.draw.content((8, -6.5), (18.5, -12.6))[
+      #let cell-color = cell-color(base-color: red);
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 20pt)[
+        #align(center + horizon)[
+          #text(size: 30pt, fill: cell-color.stroke-color)[
+            *Драйвер ФС*
+          ]
+        ]
+      ]
+    ]
+
+    cetz.draw.set-style(content: (padding: .2), stroke: 5pt + black)
+    cetz.draw.line((2, -5), (2, -8))
+    cetz.draw.line((2, -8), (8, -8), mark: (end: ">"))
+
+    cetz.draw.line((8, -7.5), (2.5, -7.5))
+    cetz.draw.line((2.5, -7.5), (2.5, -5), mark: (end: ">"))
+  })
+]
+
+#slide(
+  place-location: horizon + center)[
+  #cetz.canvas(length: 1cm, {
+    cetz.draw.content((0, 0), (8, -5))[
+      #let cell-color = cell-color(base-color: blue);
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt)[
+        #align(center + horizon)[
+          #text(size: 30pt, fill: cell-color.stroke-color)[
+            *Ваша программа*
+          ]
+        ]
+      ]
+    ]
+
+    cetz.draw.content((9, 0), (18, -5))[
+      #let cell-color = cell-color(base-color: blue);
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt)[
+        #align(center + horizon)[
+          #text(size: 30pt, fill: cell-color.stroke-color)[
+            *Userspace-драйвер*
+          ]
+        ]
+      ]
+    ]
+
+    cetz.draw.content((0, -6), (19, -13))[
+      #let cell-color = cell-color(base-color: red);
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt, inset: 20pt)
+    ]
+
+    cetz.draw.content((0, -6), (8, -13))[
+      #let cell-color = cell-color(base-color: red);
+      #align(horizon + center)[
+        #text(size: 30pt, fill: cell-color.stroke-color)[
+          *Ядро*
+        ]
+      ]
+    ]
+
+    cetz.draw.content((8, -6.5), (18.5, -12.6))[
+      #let cell-color = cell-color(base-color: red);
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 20pt)[
+        #align(center + horizon)[
+          #text(size: 30pt, fill: cell-color.stroke-color)[
+            *Драйвер FUSE*
+          ]
+        ]
+      ]
+    ]
+
+    cetz.draw.set-style(content: (padding: .2), stroke: 5pt + black)
+    cetz.draw.line((2, -5), (2, -8))
+    cetz.draw.line((2, -8), (8, -8), mark: (end: ">"))
+
+    cetz.draw.line((8, -7.5), (2.5, -7.5))
+    cetz.draw.line((2.5, -7.5), (2.5, -5), mark: (end: ">"))
+
+    cetz.draw.line((13.75, -6.5), (13.75, -5), mark: (end: ">"))
+    cetz.draw.line((13.25, -5), (13.25, -6.5), mark: (end: ">"))
+  })
+]
+
 #focus-slide[
   #text(size: 50pt)[
     *Сеанс магии*
   ]
+]
+
+#slide(
+  header: [И всё же, зачем?], place-location: horizon,
+)[
+  - #bash("sshfs") : проект сообщества, позволяет монтировать ФС через #bash("ssh");
+
+  - Снижает поверхность атаки;
+
+  - Позволяет монтировать *почти любые образы дисков*, не имея прав администратора.
 ]
 
 #title-slide[
