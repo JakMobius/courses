@@ -3,7 +3,6 @@
 })
 
 #let cell-color(base-color: none) = {
-
   if base-color == none {
     base-color = blue
   }
@@ -12,9 +11,7 @@
   let stroke-color = color.mix((base-color, 50%), (black, 50%))
 
   (
-    base-color: base-color,
-    background-color: background-color,
-    stroke-color: stroke-color
+    base-color: base-color, background-color: background-color, stroke-color: stroke-color,
   )
 }
 
