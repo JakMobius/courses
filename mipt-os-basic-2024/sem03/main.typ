@@ -258,7 +258,8 @@
 ]
 
 #slide(
-  header: [#codebox(lang: "c", "tell(int fd)")], background-image: none,
+  header: [#codebox(lang: "c", "fcntl(int fd, int cmd, long arg)")], 
+  background-image: none,
 )[
 == Системный вызов управления дескрипторами.
 
@@ -860,9 +861,42 @@
 #slide(
   place-location: horizon + center)[
   #cetz.canvas(length: 1cm, {
-    cetz.draw.content((0, 0), (8, -5))[
+
+    let background(color) = {
+      box(
+        fill: cell-color(base-color: color).background-color, width: 100%, height: 100%,
+      )
+    }
+
+    let title(color, content) = {
+      place(
+        top + left,
+      )[
+        #box(
+          inset: 15pt,
+        )[
+          #text(
+            weight: "black", size: 30pt, fill: cell-color(base-color: color).stroke-color,
+          )[
+            #content
+          ]
+        ]
+      ]
+    }
+
+    cetz.draw.content((0, 0), (30, -8.5))[
+      #background(blue)
+      #title(blue, [Userspace])
+    ]
+
+    cetz.draw.content((0, -8), (30, -17))[
+      #background(red)
+      #title(red, [Ядро])
+    ]
+
+    cetz.draw.content((10.5, -1.5), (19.5, -6))[
       #let cell-color = cell-color(base-color: blue);
-      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt)[
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 10pt)[
         #align(center + horizon)[
           #text(size: 30pt, fill: cell-color.stroke-color)[
             *Ваша программа*
@@ -871,46 +905,62 @@
       ]
     ]
 
-    cetz.draw.content((0, -6), (19, -13))[
-      #let cell-color = cell-color(base-color: red);
-      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt, inset: 20pt)
-    ]
-
-    cetz.draw.content((0, -6), (8, -13))[
-      #let cell-color = cell-color(base-color: red);
-      #align(horizon + center)[
-        #text(size: 30pt, fill: cell-color.stroke-color)[
-          *Ядро*
-        ]
-      ]
-    ]
-
-    cetz.draw.content((8, -6.5), (18.5, -12.6))[
+    cetz.draw.content((5, -10), (25, -16))[
       #let cell-color = cell-color(base-color: red);
       #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 20pt)[
         #align(center + horizon)[
           #text(size: 30pt, fill: cell-color.stroke-color)[
-            *Драйвер ФС*
+            *Драйвер ФС в ядре*
           ]
         ]
       ]
     ]
 
-    cetz.draw.set-style(content: (padding: .2), stroke: 5pt + black)
-    cetz.draw.line((2, -5), (2, -8))
-    cetz.draw.line((2, -8), (8, -8), mark: (end: ">"))
-
-    cetz.draw.line((8, -7.5), (2.5, -7.5))
-    cetz.draw.line((2.5, -7.5), (2.5, -5), mark: (end: ">"))
+    cetz.draw.set-style(content: (padding: .2), stroke: 10pt + black)
+    cetz.draw.line((13.5, -6.5), (13.5, -9.5), mark: (end: ">", start: "<"))
+    cetz.draw.line((16.5, -9.5), (16.5, -6.5), mark: (end: ">", start: "<"))
   })
 ]
 
 #slide(
   place-location: horizon + center)[
   #cetz.canvas(length: 1cm, {
-    cetz.draw.content((0, 0), (8, -5))[
+
+    let background(color) = {
+      box(
+        fill: cell-color(base-color: color).background-color, width: 100%, height: 100%,
+      )
+    }
+
+    let title(color, content) = {
+      place(
+        top + left,
+      )[
+        #box(
+          inset: 15pt,
+        )[
+          #text(
+            weight: "black", size: 30pt, fill: cell-color(base-color: color).stroke-color,
+          )[
+            #content
+          ]
+        ]
+      ]
+    }
+
+    cetz.draw.content((0, 0), (30, -8.5))[
+      #background(blue)
+      #title(blue, [Userspace])
+    ]
+
+    cetz.draw.content((0, -8), (30, -17))[
+      #background(red)
+      #title(red, [Ядро])
+    ]
+
+    cetz.draw.content((5.5, -2), (14.5, -6))[
       #let cell-color = cell-color(base-color: blue);
-      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt)[
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 10pt)[
         #align(center + horizon)[
           #text(size: 30pt, fill: cell-color.stroke-color)[
             *Ваша программа*
@@ -919,9 +969,9 @@
       ]
     ]
 
-    cetz.draw.content((9, 0), (18, -5))[
+    cetz.draw.content((15.5, -2), (24.5, -6))[
       #let cell-color = cell-color(base-color: blue);
-      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt)[
+      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 10pt)[
         #align(center + horizon)[
           #text(size: 30pt, fill: cell-color.stroke-color)[
             *Userspace-драйвер*
@@ -930,21 +980,7 @@
       ]
     ]
 
-    cetz.draw.content((0, -6), (19, -13))[
-      #let cell-color = cell-color(base-color: red);
-      #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, radius: 20pt, inset: 20pt)
-    ]
-
-    cetz.draw.content((0, -6), (8, -13))[
-      #let cell-color = cell-color(base-color: red);
-      #align(horizon + center)[
-        #text(size: 30pt, fill: cell-color.stroke-color)[
-          *Ядро*
-        ]
-      ]
-    ]
-
-    cetz.draw.content((8, -6.5), (18.5, -12.6))[
+    cetz.draw.content((5, -10), (25, -16))[
       #let cell-color = cell-color(base-color: red);
       #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 20pt)[
         #align(center + horizon)[
@@ -955,15 +991,11 @@
       ]
     ]
 
-    cetz.draw.set-style(content: (padding: .2), stroke: 5pt + black)
-    cetz.draw.line((2, -5), (2, -8))
-    cetz.draw.line((2, -8), (8, -8), mark: (end: ">"))
-
-    cetz.draw.line((8, -7.5), (2.5, -7.5))
-    cetz.draw.line((2.5, -7.5), (2.5, -5), mark: (end: ">"))
-
-    cetz.draw.line((13.75, -6.5), (13.75, -5), mark: (end: ">"))
-    cetz.draw.line((13.25, -5), (13.25, -6.5), mark: (end: ">"))
+    cetz.draw.set-style(content: (padding: .2), stroke: 10pt + black)
+    cetz.draw.line((13.5 - 5, -6.5), (13.5 - 5, -9.5), mark: (start: "<"))
+    cetz.draw.line((16.5 - 5, -9.5), (16.5 - 5, -6.5), mark: (end: ">"))
+    cetz.draw.line((13.5 + 5, -6.5), (13.5 + 5, -9.5), mark: (start: "<"))
+    cetz.draw.line((16.5 + 5, -9.5), (16.5 + 5, -6.5), mark: (end: ">"))
   })
 ]
 
