@@ -4,5 +4,8 @@
 	.intel_syntax
 
 _asm_func:
+	mov rdi, 250
+	call _print_register
 
-    ret
+	mov rax, 10
+	ret

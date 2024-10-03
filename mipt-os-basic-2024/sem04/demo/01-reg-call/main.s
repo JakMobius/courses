@@ -8,7 +8,7 @@ _my_func:
 	jmp r10
 
 _main:
-    # error: rip can only be used as a base register
+    # Ошибка: rip can only be used as a base register
 	mov r10, rip
     add r10, 11
 	jmp _my_func

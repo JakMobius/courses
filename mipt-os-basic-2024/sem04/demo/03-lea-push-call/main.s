@@ -4,7 +4,7 @@
 	.intel_syntax
 
 _my_func:
-	mov r11, 42
+	mov r11, 44
     pop rax
 	jmp rax
 

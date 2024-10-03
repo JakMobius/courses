@@ -430,7 +430,7 @@
     },
     header([*Intel*]), header([*AT&T*]),
     lightasm("mov rax, 5"), lightasm("movq $5, %rbx"),
-    lightasm("lea eax, [ecx + ebx * 2 + 7]"), lightasm("leal 7(%ecx, %ebx, 2), %eax"),
+    lightasm("lea eax, [ecx + ebx * 2 + 7]"), lightasm("leal $7(%ecx, %ebx, $2), %eax"),
     lightasm("and DWORD PTR [eax], 7"), lightasm("andl $7, (%eax)"),
     v(0.5em), [],
     smalltext[
@@ -498,6 +498,39 @@
   )
 ]
 
+#slide(background-image: none, place-location: horizon + center)[
+  = Минимальная корректная программа на ассемблере:
+
+  #v(1em)
+  
+  #box(width: 15cm)[
+    #set text(weight: "semibold", size: 30pt)
+
+    #code(numbers: true, leading: 5pt,
+      ```asm
+      _main:
+        mov rax, SYS_EXIT
+        mov rdi, (код возврата)
+        syscall
+      ```
+    )
+  ]
+
+  #v(1em)
+
+  #box(width: 20cm)[
+    #set align(left)
+    - Выполняет *системный вызов* #codebox(lang: "c", "exit(int retval)");
+
+    - *Номер* системного вызова передаётся в #register("rax");
+    
+    - *Аргумент* системного вызова передаётся в #register("rdi");
+
+    - *Системный вызов* выполняется инструкцией #mnemonic("syscall").
+  ]
+]
+
+
 #focus-slide[
   #text(size: 40pt, weight: "bold", [Как выразить вызов функции?])
 ]
@@ -507,17 +540,16 @@
   #box(width: 20cm)[
     #code(numbers: true, leading: 5pt,
       ```c
+      uint64_t global_var;
+
       void my_func() {
         // Делаем что-то полезное здесь
-        uint64_t a, b;
-        a = b;
-        b = a;
-        return;
+        global_var = 42;
       }
 
       void main() {
         my_func();
-        __exit(0);
+        __exit(global_var);
       }
       ```
     )
@@ -529,18 +561,17 @@
   #box(width: 20cm)[
     #code(numbers: true, leading: 5pt,
       ```asm
-      _my_func:
-        # Делаем что-то полезное здесь
-        mov rax, rbx
-        mov rbx, rax
+      # global_var = r10
 
+      _my_func:
+        mov r10, 42
         # return ...?
 
       _main:
         # _my_func() ...?
 
         mov rax, SYS_EXIT
-        mov rdi, 0
+        mov rdi, r10
         syscall
       ```
     )
@@ -912,7 +943,7 @@
 ]
 
 #slide(header: "Стековый фрейм", background-image: none)[
-   #set text(weight: "semibold", size: 30pt)
+  #set text(weight: "semibold",size: 30pt)
   #code(numbers: true, leading: 5pt,
     ```c
     void merge_sort(int* arr, int n) {
@@ -931,6 +962,51 @@
 
 #slide(header: "Стековый фрейм", background-image: none)[
    #set text(weight: "semibold", size: 25pt)
+
+   #place(horizon + center)[
+    #cetz.canvas(length: 1cm, {
+      cetz.draw.content((-15, 10), (15, -10), []);
+
+      cetz.draw.set-style(stroke: 3pt)
+
+      cetz.draw.rect(
+        (-15, 5), 
+        (15, 1.8),
+        fill: blue.desaturate(95%),
+        stroke: none
+      )
+
+      cetz.draw.rect(
+        (-15, -3.5), 
+        (15, -5.7),
+        fill: blue.desaturate(95%),
+        stroke: none
+      )
+
+      cetz.draw.line(
+        (3.5, 5), 
+        (3.5, 1.8),
+        flip: false,
+        stroke: white + 4pt,
+      )
+
+      cetz.draw.line(
+        (3.5, -3.5), 
+        (3.5, -5.7),
+        flip: false,
+        stroke: white + 4pt,
+      )
+
+      cetz.draw.content((4.5, 5), (15, 1.8))[
+        #set align(horizon)
+        #raw("Создание фрейма")
+      ]
+      cetz.draw.content((4.5, -3.5), (15, -5.7))[
+        #set align(horizon)
+        #raw("Очистка фрейма")
+      ]
+    })
+  ]
   
   #code(numbers: true, leading: 5pt,
     ```asm
