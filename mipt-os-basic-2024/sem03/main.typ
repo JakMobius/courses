@@ -33,8 +33,8 @@
   place-location: center, background-image: none,
 )[
   #let transparent = color.rgb(255, 255, 255, 0)
-  #let left-color = cell-color(base-color: byte-colors.at(0))
-  #let right-color = cell-color(base-color: byte-colors.at(3))
+  #let left-color = cell-color(palette.at(0))
+  #let right-color = cell-color(palette.at(3))
   #let box-options = (inset: (x: 25pt, y: 30pt), width: 12cm, radius: 20pt)
 
   #grid(
@@ -343,7 +343,7 @@
 
       let background(color) = {
         box(
-          fill: cell-color(base-color: color).background-color, width: 100%, height: 100%,
+          fill: cell-color(color).background-color, width: 100%, height: 100%,
         )
       }
 
@@ -355,7 +355,7 @@
             inset: 15pt,
           )[
             #text(
-              weight: "black", size: 30pt, fill: cell-color(base-color: color).stroke-color,
+              weight: "black", size: 30pt, fill: cell-color(color).stroke-color,
             )[
               #content
             ]
@@ -443,7 +443,7 @@
 ]
 
 #let largecell(color, content) = [
-  #let color = cell-color(base-color: color)
+  #let color = cell-color(color)
   #box(
     radius: 10pt, fill: color.background-color, stroke: 3pt + color.stroke-color, inset: 30pt,
   )[
@@ -496,7 +496,7 @@
   cetz.draw.content(
     (left, position.y), (right, position.y - index-node-height), padding: none, {
       set align(horizon + center)
-      let color = cell-color(base-color: black)
+      let color = cell-color(black)
       box(
         width: 100%, height: 100%, fill: color.background-color, stroke: 2pt + color.stroke-color, radius: 10pt,
       )[
@@ -514,7 +514,7 @@
       set align(center)
       set block(spacing: 5pt)
       set text(size: 25pt)
-      let colors = cell-color(base-color: byte-colors.at(1))
+      let colors = cell-color(palette.at(1))
 
       grid(
         rows: (1.8cm,) * values.len(), columns: 100%, align: horizon + center, stroke: 2pt + colors.stroke-color, fill: colors.background-color, ..values,
@@ -540,7 +540,7 @@
     )
 
     let largecodebox(lang: none, content) = {
-      let color = cell-color(base-color: blue)
+      let color = cell-color(blue)
       box(
         radius: 5pt, fill: color.background-color, width: 12cm, height: 1.7cm, stroke: 2pt + color.stroke-color,
       )[
@@ -603,7 +603,7 @@
       #set block(spacing: 40pt)
       #text(
         size: 60pt, weight: "black",
-      )[#largecell(byte-colors.at(1), [Directory Entry])]
+      )[#largecell(palette.at(1), [Directory Entry])]
     ]
 
     #align(left)[
@@ -864,7 +864,7 @@
 
     let background(color) = {
       box(
-        fill: cell-color(base-color: color).background-color, width: 100%, height: 100%,
+        fill: cell-color(color).background-color, width: 100%, height: 100%,
       )
     }
 
@@ -876,7 +876,7 @@
           inset: 15pt,
         )[
           #text(
-            weight: "black", size: 30pt, fill: cell-color(base-color: color).stroke-color,
+            weight: "black", size: 30pt, fill: cell-color(color).stroke-color,
           )[
             #content
           ]
@@ -895,7 +895,7 @@
     ]
 
     cetz.draw.content((10.5, -1.5), (19.5, -6))[
-      #let cell-color = cell-color(base-color: blue);
+      #let cell-color = cell-color(blue);
       #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 10pt)[
         #align(center + horizon)[
           #text(size: 30pt, fill: cell-color.stroke-color)[
@@ -906,7 +906,7 @@
     ]
 
     cetz.draw.content((5, -10), (25, -16))[
-      #let cell-color = cell-color(base-color: red);
+      #let cell-color = cell-color(red);
       #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 20pt)[
         #align(center + horizon)[
           #text(size: 30pt, fill: cell-color.stroke-color)[
@@ -928,7 +928,7 @@
 
     let background(color) = {
       box(
-        fill: cell-color(base-color: color).background-color, width: 100%, height: 100%,
+        fill: cell-color(color).background-color, width: 100%, height: 100%,
       )
     }
 
@@ -940,7 +940,7 @@
           inset: 15pt,
         )[
           #text(
-            weight: "black", size: 30pt, fill: cell-color(base-color: color).stroke-color,
+            weight: "black", size: 30pt, fill: cell-color(color).stroke-color,
           )[
             #content
           ]
@@ -959,7 +959,7 @@
     ]
 
     cetz.draw.content((5.5, -2), (14.5, -6))[
-      #let cell-color = cell-color(base-color: blue);
+      #let cell-color = cell-color(blue);
       #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 10pt)[
         #align(center + horizon)[
           #text(size: 30pt, fill: cell-color.stroke-color)[
@@ -970,7 +970,7 @@
     ]
 
     cetz.draw.content((15.5, -2), (24.5, -6))[
-      #let cell-color = cell-color(base-color: blue);
+      #let cell-color = cell-color(blue);
       #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 10pt)[
         #align(center + horizon)[
           #text(size: 30pt, fill: cell-color.stroke-color)[
@@ -981,7 +981,7 @@
     ]
 
     cetz.draw.content((5, -10), (25, -16))[
-      #let cell-color = cell-color(base-color: red);
+      #let cell-color = cell-color(red);
       #box(width: 100%, height: 100%, fill: cell-color.background-color, stroke: 3pt + cell-color.stroke-color, inset: 20pt)[
         #align(center + horizon)[
           #text(size: 30pt, fill: cell-color.stroke-color)[

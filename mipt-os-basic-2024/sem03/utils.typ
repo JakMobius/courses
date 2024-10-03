@@ -1,8 +1,8 @@
-#let byte-colors = array.range(8).map((i) => {
+#let palette = array.range(8).map((i) => {
   color.hsv(i * 45deg + 240deg, 100%, 100%)
 })
 
-#let cell-color(base-color: none) = {
+#let cell-color(base-color) = {
   if base-color == none {
     base-color = blue
   }

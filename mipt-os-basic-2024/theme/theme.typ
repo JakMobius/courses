@@ -202,7 +202,7 @@
 
 #let codebox(lang: none, prefix: none, content) = {
   box(
-    baseline: 5pt + 0.15em, inset: (x: 2pt + 0.2em, y: 3pt + 0.2em), radius: 5pt, fill: rgb(60, 60, 60),
+    baseline: 5pt + 0.1em, inset: (x: 2pt + 0.2em, y: 3pt + 0.2em), radius: 5pt, fill: rgb(60, 60, 60),
   )[
     #set text(baseline: -1pt)
     #if prefix != none [
@@ -215,3 +215,7 @@
 }
 
 #let bash(code) = codebox(lang: "bash", prefix: text(fill: green)[`$`], code)
+
+#let palette = array.range(8).map((i) => {
+  color.hsv(i * 45deg + 240deg, 100%, 100%)
+})

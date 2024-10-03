@@ -2,14 +2,11 @@
 #import "@preview/cetz:0.2.2"
 #import "@preview/polylux:0.3.1": pause
 #import "./floats.typ": *
+#import "../theme/theme.typ": *
 
-#let byte-colors = array.range(8).map((i) => {
-  color.hsv(i * 45deg + 240deg, 100%, 100%)
-})
-
-#let float-mantissa-color = byte-colors.at(0)
-#let float-exponent-color = byte-colors.at(1)
-#let float-sign-color = byte-colors.at(2)
+#let float-mantissa-color = palette.at(0)
+#let float-exponent-color = palette.at(1)
+#let float-sign-color = palette.at(2)
 
 #let is-bit-set(number, bit) = {
   let mask = int.bit-lshift(1, bit)
@@ -286,7 +283,7 @@
       let bit-set = is-bit-set(number, real-bit)
 
       let base-color = if bit-set {
-        byte-colors.at(real-byte(byte))
+        palette.at(real-byte(byte))
       } else {
         black
       }
@@ -347,7 +344,7 @@
       let bit = calc.rem(i, 8)
       let real-bit = real-byte(byte) * 8 + (7 - bit)
 
-      let theme = cell-color(base-color: byte-colors.at(real-byte(byte)))
+      let theme = cell-color(base-color: palette.at(real-byte(byte)))
 
       // Можно было использовать тут #cellbox, но мы их
       // рисуем 112 штук на каждый слайд, и это начинает
