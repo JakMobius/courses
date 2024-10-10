@@ -2,6 +2,7 @@
 #import "@preview/polylux:0.3.1": *
 #import "@preview/cetz:0.2.2"
 #import "../theme/theme.typ": *
+#import "../theme/asm.typ": *
 #import "./utils.typ": *
 
 #show: theme
@@ -253,16 +254,6 @@
   #text(size: 40pt)[*x86*]
 ]
 
-#let register(name) = {
-  set text(size: 1.2em, fill: asmcolors-light.register, weight: "bold")
-  raw(name)
-}
-
-#let mnemonic(name) = {
-  set text(size: 1.2em, fill: asmcolors-light.instruction, weight: "bold")
-  raw(name)
-}
-
 #let impossible-register() = {
   let pat = pattern(size: (25pt, 25pt))[
     #let stroke = 2pt + color.gray
@@ -367,6 +358,7 @@
       table.cell(colspan: 1, register("al")),
       []
     )
+    #set text(size: 20pt)
     #semibold([
       Аналогично работают #register("bx"), #register("cx"), #register("dx")
       
@@ -398,6 +390,7 @@
       table.cell(colspan: 1, register("r10b")),
       []
     )
+    #set text(size: 20pt)
     #semibold([Аналогично работают #register("r8") ... #register("r15")])
   ]
 ]
@@ -430,7 +423,7 @@
     },
     header([*Intel*]), header([*AT&T*]),
     lightasm("mov rax, 5"), lightasm("movq $5, %rbx"),
-    lightasm("lea eax, [ecx + ebx * 2 + 7]"), lightasm("leal $7(%ecx, %ebx, $2), %eax"),
+    lightasm("lea eax, [ecx + ebx * 2 + 7]"), lightasm("leal 7(%ecx, %ebx, 2), %eax"),
     lightasm("and DWORD PTR [eax], 7"), lightasm("andl $7, (%eax)"),
     v(0.5em), [],
     smalltext[
@@ -538,7 +531,7 @@
 #slide(background-image: none, place-location: horizon + center)[
   #set text(weight: "semibold", size: 30pt)
   #box(width: 20cm)[
-    #code(numbers: true, leading: 5pt,
+    #code(leading: 5pt, numbers: true,
       ```c
       uint64_t global_var;
 
@@ -559,7 +552,7 @@
 #slide(background-image: none, place-location: horizon + center)[
   #set text(weight: "semibold", size: 30pt)
   #box(width: 20cm)[
-    #code(numbers: true, leading: 5pt,
+    #lightasmtable(numbers: true,
       ```asm
       # global_var = r10
 
@@ -586,7 +579,7 @@
       align: horizon,
       stroke: none,
       
-      code(leading: 5pt,
+      lightasmtable(
         ```asm
           # Вызов функции  
           mov r10, rip
@@ -594,7 +587,7 @@
           jmp _my_func
         ```
       ),
-      code(leading: 5pt,
+      lightasmtable(
         ```asm
           # Выход из функции
           jmp r10
@@ -606,9 +599,9 @@
     #uncover((beginning: 2))[
       #cetz.canvas(length: 1cm, {
         cetz.draw.set-style(stroke: 5pt + black, mark: (end: ">"))
-        cetz.draw.content((0, 0), (30.0, -12.2), {})
-        cetz.draw.bezier((15, -2), (11, -5.5), (15, -5.5))
-        cetz.draw.content((15, -1), [
+        cetz.draw.content((0, 0), (33.0, -12.2), {})
+        cetz.draw.bezier((16, -2), (14, -5.5), (17, -5.5))
+        cetz.draw.content((17, -1), [
           А так нельзя!
         ])
       })
@@ -628,14 +621,14 @@
       align: horizon,
       stroke: none,
       
-      code(leading: 5pt,
+      lightasmtable(
         ```asm
           # Вызов функции  
           lea r10, [rip + 5]
           jmp _my_func
         ```
       ),
-      code(leading: 5pt,
+      lightasmtable(
         ```asm
           # Выход из функции
           jmp r10
@@ -673,7 +666,7 @@
       align: horizon,
       stroke: none,
       
-      code(leading: 5pt,
+      lightasmtable(
         ```asm
           # Вызов функции  
           lea rax, [rip + 6]
@@ -681,7 +674,7 @@
           jmp _my_func
         ```
       ),
-      code(leading: 5pt,
+      lightasmtable(
         ```asm
           # Выход из функции
           pop rax
@@ -704,13 +697,13 @@
       align: horizon,
       stroke: none,
       
-      code(leading: 5pt,
+      lightasmtable(
         ```asm
           # Вызов функции  
           call _my_func
         ```
       ),
-      code(leading: 5pt,
+      lightasmtable(
         ```asm
           # Выход из функции
           ret

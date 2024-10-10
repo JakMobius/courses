@@ -1,3 +1,4 @@
+.PHONY: run clean
 
 a.out: main.s
 	# Осторожно, macOS-specific:
