@@ -1,11 +1,9 @@
 .PHONY: all compile watch handout clean
 
-.FORCE: ;
-
 ARGS=--root .. --font-path ../theme/fonts
 NAME=$(shell basename $(CURDIR))
 
-all: compile handout cheat-sheet;
+all: compile handout;
 
 compile:
 	typst compile main.typ ${ARGS} "${NAME}-class.pdf"
@@ -18,9 +16,6 @@ handout:
 
 format:
 	typstfmt *.typ
-
-cheat-sheet: .FORCE
-	make -C cheat-sheet
 
 clean:
 	rm -rf "${NAME}-class.pdf" "${NAME}.pdf"

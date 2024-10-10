@@ -1,6 +1,6 @@
 .FORCE:
 
-all: sem01 sem02 sem03 sem04;
+all: sem01 sem02 sem03 sem04 sem05;
 
 sem01: .FORCE
 	make -C sem01
@@ -13,3 +13,6 @@ sem03: .FORCE
 
 sem04: .FORCE
 	make -C sem04
+
+sem05: .FORCE
+	make -C sem05

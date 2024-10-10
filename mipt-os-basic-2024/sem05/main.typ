@@ -586,7 +586,7 @@
 
   #place(left + bottom)[
     #uncover((beginning: 2))[
-      #colbox(color: green)[*Ответ: *] - *как сверху*, после #mnemonic("jmp") мы уже не восстановим адрес возврата.
+      #colbox(color: green)[*Ответ: *] *Оба варианта сработают*, но верхний запретит функции без фрейма.
     ]
   ]
 ]
@@ -669,9 +669,9 @@
       cetz.draw.line((2, 3.6), (2.5, 3.6), mark: (end: ">"))
 
       cetz.draw.set-style(stroke: none)
-      cetz.draw.rect((-7.4, 2), (-6.5, 0.8), fill: green.transparentize(70%))
-      cetz.draw.rect((3, 3), (13, 4.2), fill: green.transparentize(70%))
-      cetz.draw.rect((-12, 0.8), (-2, -0.4), fill: red.transparentize(70%))
+      cetz.draw.rect((-7.4, 2.3), (-6.5, 1.2), fill: green.transparentize(70%))
+      cetz.draw.rect((3,    3.3), (13,   4.5), fill: green.transparentize(70%))
+      cetz.draw.rect((-12,  1.2), (-2,   -0.1), fill: red.transparentize(70%))
 
     })
   ]
@@ -713,8 +713,8 @@
     #cetz.canvas(length: 1cm, {
       cetz.draw.content((-15, 10), (15, -10), [])
       cetz.draw.set-style(stroke: none)
-      cetz.draw.rect((2, 1.9), (14, 3.1), fill: green.transparentize(70%))
-      cetz.draw.rect((2, -3.1), (14, -1.9), fill: green.transparentize(70%))
+      cetz.draw.rect((1.7, 2.2), (14.3, 3.4), fill: green.transparentize(70%))
+      cetz.draw.rect((1.7, -3.4), (14.3, -2.3), fill: green.transparentize(70%))
     })
   ]
 ]
@@ -758,12 +758,12 @@
       cetz.draw.content((-15, 10), (15, -10), [])
       cetz.draw.set-style(stroke: none)
       
-      cetz.draw.rect((2, -3.7), (14, -2.5), fill: red.transparentize(70%))
-      cetz.draw.rect((2, -4.9), (14, -3.7), fill: green.transparentize(70%))
+      cetz.draw.rect((1.6, -2.9), (13.5, -1.7), fill: red.transparentize(70%))
+      cetz.draw.rect((1.6, -4.1), (13.5, -2.9), fill: green.transparentize(70%))
 
-      cetz.draw.rect((-10, 0.8), (-4.2, -0.4), fill: red.transparentize(70%))
-      cetz.draw.rect((-10, 2), (-3.8, 0.8), fill: red.transparentize(70%))
-      cetz.draw.rect((-10, -0.4), (-3.8, -1.6), fill: green.transparentize(70%))
+      cetz.draw.rect((-10, 1.2),  (-4.2, 0), fill: red.transparentize(70%))
+      cetz.draw.rect((-10, 2.4),  (-3.8, 1.2), fill: red.transparentize(70%))
+      cetz.draw.rect((-10, 0),    (-3.8, -1.2), fill: green.transparentize(70%))
     })
   ]
 
