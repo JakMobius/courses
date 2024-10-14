@@ -683,6 +683,12 @@
   #only("1")[
     #place(center + horizon, header)
   ]
+]
+
+#slide(
+  background-image: none,
+)[
+  #let header = [= Задача: сколько ссылок у пустой директории?]
   #uncover(
     (beginning: 2),
   )[
