@@ -1,0 +1,7 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "dependencies": [
+    "glfw3", "vulkan"
+  ],
+  "builtin-baseline": "3207386cc93121b907a8c5498a43b7a312f4f55d"
+}
