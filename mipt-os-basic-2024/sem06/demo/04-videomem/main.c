@@ -383,7 +383,7 @@ void createThread() {
     uint64_t stackPtr = (uint64_t) mappedBuffer;
     uint64_t stackSize = WIDTH * HEIGHT * 4;
 
-    uint64_t ptrAlign = 8;
+    uint64_t ptrAlign = getpagesize();
     uint64_t sizeAlign = getpagesize();
 
     int res = 0;
@@ -427,7 +427,7 @@ int main() {
 }
 
 void* threadMain(void* arg) {
-    return fibMain(arg);
-    // return sortMain(arg);
+    // return fibMain(arg);
+    return sortMain(arg);
     // return imageMain(arg);
 }

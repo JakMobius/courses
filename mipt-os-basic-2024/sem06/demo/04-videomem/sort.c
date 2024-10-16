@@ -17,16 +17,6 @@ void shuffleArray(uint8_t* array, size_t size) {
     }
 }
 
-void bubbleSort(uint8_t* array, size_t size) {
-    for (size_t i = 0; i < size - 1; i++) {
-        for (size_t j = i; j < size - i - 1; j++) {
-            if (array[j] > array[j + 1]) {
-                swap(&array[j], &array[j + 1]);
-            }
-        }
-    }
-}
-
 int compare(const void* a, const void* b) {
 
     // Just a little delay

@@ -254,7 +254,7 @@
 - #codebox("SEEK_CUR") : Сдвинуть позицию на #codebox("offset") ;
 - #codebox("SEEK_END") : Установить позицию в *конец* и сдвинуть на #codebox("offset") .
 
-== Узнать позицию можно системным вызовом #codebox(lang: "c", "tell(int fd)")
+== #codebox(lang: "c", "lseek()") возвращает позицию в байтах от начала файла.
 ]
 
 #slide(
