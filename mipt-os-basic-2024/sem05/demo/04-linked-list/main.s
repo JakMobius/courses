@@ -8,19 +8,12 @@ _print_list:
 	stp x29, x30, [sp, 16]
 	mov x29, sp
 
-	str x19, [sp]
-
-	loop:
-	mov x19, x0
+	//# <ваш_код>
 
 	ldr x0, [x0, 8]
 	bl _puts
-
-	ldr x0, [x19]
-	tst x0, x0
-	b.ne loop
-
-	ldr x19, [sp]
+	
+	//# </ваш_код>
 
 	ldp x29, x30, [sp, 16]
 	add sp, sp, 32

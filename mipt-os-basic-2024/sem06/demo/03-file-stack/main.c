@@ -142,6 +142,6 @@ int main(int argc,char *argv[])
 }
 
 void* threadMain(void* arg) {
-    // return fibMain(arg);
-    return sortMain(arg);
+    return fibMain(arg);
+    // return sortMain(arg);
 }

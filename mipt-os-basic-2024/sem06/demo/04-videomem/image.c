@@ -15,8 +15,8 @@ void* imageMain(void* arg) {
     fseek(file, 0, SEEK_SET);
 
 #if 1
-    uint8_t buffer[fileSize];
-    fread(buffer, 1, fileSize, file);
+    uint8_t buffer[fileSize + 4];
+    fread(buffer + 1, 1, fileSize, file);
     fclose(file);
 
 #else

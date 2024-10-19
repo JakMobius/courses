@@ -58,6 +58,8 @@ int main(int argc,char *argv[])
 
     void* addr = NULL;
 
+    // fileSize выровнен!!!!
+
     if ((addr = mmap(NULL, fileSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)) == MAP_FAILED) {
         perror("mmap");
         return EXIT_FAILURE;

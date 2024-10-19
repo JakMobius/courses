@@ -11,7 +11,7 @@ int compare(const void* a, const void* b) {
 }
 
 void* sortMain(void* arg) {
-    volatile elt_t buffer[600 * 400 * 4 / sizeof(elt_t)];
+    volatile elt_t buffer[600 * 500 * 4 / sizeof(elt_t)];
 
     qsort(buffer, sizeof(buffer) / sizeof(elt_t), sizeof(elt_t), compare);
     return NULL;

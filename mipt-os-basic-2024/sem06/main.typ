@@ -529,7 +529,7 @@
     cetz.draw.line((0, -6.8), (7, -6.8), name: "root", stroke: luma(80) + 5pt)
 
     cetz.draw.content((name: "root", anchor: 50%), anchor: "south", padding: .4, [
-      #text(size: 20pt, fill: luma(80))[*Регистр CR2*]
+      #text(size: 20pt, fill: luma(80))[*Регистр CR3*]
     ])
 
     for (i, dirent-index) in ((-1, none),) + indices.enumerate() {
