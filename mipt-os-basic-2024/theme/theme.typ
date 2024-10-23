@@ -191,9 +191,9 @@
   )
 }
 
-#let colbox(color: red, content) = {
+#let colbox(color: red, stroke: none, inset: (x: 10pt, y: 10pt), baseline: 10pt, content) = {
   box(
-    baseline: 0.2em + 4pt, inset: (x: 10pt, y: 10pt), radius: 5pt, fill: color,
+    baseline: baseline, inset: inset, stroke: stroke, radius: 5pt, fill: color,
   )[
     #set text(fill: white, font: "Roboto")
     #content

@@ -18,12 +18,14 @@
     rules.push((regex("^\s*[a-z]+(\.[a-z]+)?"), theme.instruction))
   }
   rules += (
+      // hexademicals
+      (regex("0x[0-9a-zA-Z]+"), theme.number),
       // x86 r1-r15
       (regex("%?r[0-9]?[0-9]"), theme.register),
       // arm registers
       (regex("(x|w)[0-9]?[0-9]"), theme.register),
       // numbers
-      (regex("\$?((0x[0-9a-zA-Z]+)|[0-9]+)"), theme.number),
+      (regex("[0-9]+"), theme.number),
       // ax, bc, cx, dx, si, di, bp, sp, ip and extensions
       (regex("%?([re]?(([abcd]x)|si|bp|sp|ip|di))"), theme.register),
       (regex("%?[abcd][lh]"), theme.register),
