@@ -47,14 +47,14 @@
 #let m-dark-teal = rgb(9, 135, 181)
 #let m-extra-light-gray = white.darken(2%)
 
-#let slide-with-background(header: none, background-image-name: "board.svg", background-offset: 35%, place-location: none, content) = {
+#let slide-with-background(header: none, background-image-name: "board.svg", background-color: none, background-offset: 35%, place-location: none, content) = {
   set page(
     background: {
       place(
         center,
       )[
         #block(
-          width: 100%, height: 100%, fill: gradient.radial(white, rgb(91%, 91.3%, 91.35%)),
+          width: 100%, height: 100%, fill: background-color,
         )
       ]
 
@@ -95,8 +95,8 @@
   ]
 }
 
-#let slide(header: none, background-image: "board-transparent.svg", place-location: none, content) = {
-  slide-with-background(header: header, background-image-name: background-image, background-offset: 50%, place-location: place-location)[
+#let slide(header: none, background-image: "board-transparent.svg", background: gradient.radial(white, rgb(91%, 91.3%, 91.35%)), place-location: none, content) = {
+  slide-with-background(header: header, background-image-name: background-image, background-color: background, background-offset: 50%, place-location: place-location)[
     #content 
   ]
 }

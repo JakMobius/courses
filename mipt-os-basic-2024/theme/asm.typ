@@ -15,7 +15,7 @@
       (regex("[a-zA-Z_][0-9a-zA-Z_]*:"), theme.label),
   )
   if not no-mnemonic {
-    rules.push((regex("^\s*[a-z]+(\.[a-z]+)?"), theme.instruction))
+    rules.push((regex("^\s*(lock )?[a-z]+(\.[a-z]+)?"), theme.instruction))
   }
   rules += (
       // hexademicals
