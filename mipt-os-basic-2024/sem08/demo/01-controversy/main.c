@@ -27,7 +27,7 @@ int thread2() {
 // }
 
 int thread3() {
-	for(int i = 0; i < 99999; i++) {
+	for(int i = 0; i < 1000000; i++) {
 		puts(MESSAGE);
 	}
     return 0;

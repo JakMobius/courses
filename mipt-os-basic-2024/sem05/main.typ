@@ -746,8 +746,8 @@
           # Тело функции
           
           ldp x29, x30, [sp], 16
+          br x30
           ret
-          
         ```
       )
     )
@@ -758,8 +758,8 @@
       cetz.draw.content((-15, 10), (15, -10), [])
       cetz.draw.set-style(stroke: none)
       
-      cetz.draw.rect((1.6, -2.9), (13.5, -1.7), fill: red.transparentize(70%))
-      cetz.draw.rect((1.6, -4.1), (13.5, -2.9), fill: green.transparentize(70%))
+      cetz.draw.rect((1.6, -4), (5.5, -2.8), fill: red.transparentize(70%))
+      cetz.draw.rect((1.6, -5.2), (5.5, -4), fill: green.transparentize(70%))
 
       cetz.draw.rect((-10, 1.2),  (-4.2, 0), fill: red.transparentize(70%))
       cetz.draw.rect((-10, 2.4),  (-3.8, 1.2), fill: red.transparentize(70%))
