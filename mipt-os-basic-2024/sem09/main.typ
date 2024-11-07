@@ -817,6 +817,37 @@
   - #lightcodebox("sa_handler") можно установить в #lightcodebox("SIG_DFL") или #lightcodebox("SIG_IGN"). Это #lightcodebox("default") и #lightcodebox("ignore").
 ]
 
+#slide[
+  = #codebox("sigset_t")
+
+  *Набор сигналов.* Хранится как битовая маска. Не имеет конструктора и деструктора.
+
+  #table(
+    columns: 2,
+    stroke: (x, y) => {
+      if x == 0 {
+        (right: 3pt + gray)
+      } else {
+        none
+      }
+    },
+    align: horizon,
+    inset: (x, y) => {
+      if x == 1 {
+        (x: 20pt)
+      } else {
+        (right: 20pt)
+      }
+    },
+    row-gutter: 7pt,
+    codebox(lang: "c", "sigemptyset(sigset_t* set);"), [Пустое множество],
+codebox(lang: "c", "sigfillset(sigset_t* set);"), [Полное множество],
+codebox(lang: "c", "sigaddset(sigset_t* set, int signum);"), [Добавить сигнал],
+codebox(lang: "c", "sigdelset(sigset_t* set, int signum);"), [Удалить сигнал],
+codebox(lang: "c", "sigismember(sigset_t* set, int signum);"), [Проверить наличие сигнала],
+  )
+]
+
 #slide(background: white, background-image: none)[
   = Обрабатываем Ctrl+C
   #set text(weight: "bold")
@@ -840,6 +871,48 @@
     sigaction(SIGINT, &act, NULL);
   }
   ```)
+]
+
+#slide(background-image: none)[
+  #ub-header[
+    = #colbox(color: red)[⚠️] Не стреляйте сигнальной ракетницей по ногам.
+  ]
+
+  - Нужно помнить, что обработчики сигналов могут быть вызваны в любой момент, даже во время исполнения библиотечного кода.
+
+  - Многие стандартные функции небезопасны при обработке сигналов. Например:
+
+  #align(center)[
+    #box(inset: 0pt)[
+      #table(columns: 4,
+        stroke: (x, y) => {
+          if x != 0 {
+            (left: 3pt + gray)
+          } else {
+            (:)
+          }
+        },
+        row-gutter: 7pt,
+        inset: (x: 15pt, y: 3pt),
+        align: center + horizon,
+
+        [#codebox(lang: "c", "malloc()")],
+        [#codebox(lang: "c", "free()")],
+        [#codebox(lang: "c", "printf()")],
+        [#codebox(lang: "c", "fopen()")],
+        [#codebox(lang: "c", "fread()")],
+        [#codebox(lang: "c", "rand()")],
+        [#codebox(lang: "c", "strerror()")],
+        [#codebox(lang: "c", "perror()")],
+      )
+    ]
+  ]
+
+  - Список безопасных функций есть в #bash("man 7 signal-safety")
+  
+  - Для глобальных переменных, которые используются обработчиками, нужно использовать атомарные типы. Например, #codebox(lang: "c", "sig_atomic_t").
+
+  - Если участок кода не хочется прерывать, можно временно заблокировать сигналы. Будет аналогично работе мьютекса.
 ]
 
 #slide(header: [Блокировка сигналов])[
@@ -885,37 +958,6 @@
     [`=` #codebox("SIG_SETMASK")],[Установить маску;],
     [`=` #codebox("SIG_BLOCK")], [Заблокировать из маски;],
     [`=` #codebox("SIG_UNBLOCK")],[Разблокировать из маски.],
-  )
-]
-
-#slide[
-  = #codebox("sigset_t")
-
-  *Набор сигналов.* Хранится как битовая маска. Не имеет конструктора и деструктора.
-
-  #table(
-    columns: 2,
-    stroke: (x, y) => {
-      if x == 0 {
-        (right: 3pt + gray)
-      } else {
-        none
-      }
-    },
-    align: horizon,
-    inset: (x, y) => {
-      if x == 1 {
-        (x: 20pt)
-      } else {
-        (right: 20pt)
-      }
-    },
-    row-gutter: 7pt,
-    codebox(lang: "c", "sigemptyset(sigset_t* set);"), [Пустое множество],
-codebox(lang: "c", "sigfillset(sigset_t* set);"), [Полное множество],
-codebox(lang: "c", "sigaddset(sigset_t* set, int signum);"), [Добавить сигнал],
-codebox(lang: "c", "sigdelset(sigset_t* set, int signum);"), [Удалить сигнал],
-codebox(lang: "c", "sigismember(sigset_t* set, int signum);"), [Проверить наличие сигнала],
   )
 ]
 
@@ -970,63 +1012,6 @@ codebox(lang: "c", "sigismember(sigset_t* set, int signum);"), [Проверит
   - Даже если процесс получил разные сигналы, порядок их обработки не определён.
 
   - А еще эта маска не наследуется при #lightcodebox("fork"). Почему?
-]
-
-#let ub-header = (content) => {
-  place(top, float: true)[
-    #box(
-      inset: (bottom: 20pt, top: 0pt), 
-      outset: (x: 40pt, top: 30pt), 
-      width: 100%, 
-      fill: red.desaturate(80%),
-      stroke: (bottom: 3pt + red.darken(50%))
-      )[
-
-      #content
-    ]
-  ]
-}
-
-#slide(background-image: none)[
-  #ub-header[
-    = #colbox(color: red)[⚠️] Не стреляйте сигнальной ракетницей по ногам.
-  ]
-
-  - Нужно помнить, что обработчики сигналов могут быть вызваны в любой момент, даже во время исполнения библиотечного кода.
-
-  - Многие стандартные функции небезопасны при обработке сигналов. Например:
-
-  #align(center)[
-    #box(inset: 0pt)[
-      #table(columns: 4,
-        stroke: (x, y) => {
-          if x != 0 {
-            (left: 3pt + gray)
-          } else {
-            (:)
-          }
-        },
-        row-gutter: 7pt,
-        inset: (x: 15pt, y: 3pt),
-        align: center + horizon,
-
-        [#codebox(lang: "c", "malloc()")],
-        [#codebox(lang: "c", "free()")],
-        [#codebox(lang: "c", "printf()")],
-        [#codebox(lang: "c", "fopen()")],
-        [#codebox(lang: "c", "fread()")],
-        [#codebox(lang: "c", "rand()")],
-        [#codebox(lang: "c", "strerror()")],
-        [#codebox(lang: "c", "perror()")],
-      )
-    ]
-  ]
-
-  - Список безопасных функций есть в #bash("man 7 signal-safety")
-  
-  - Для глобальных переменных, которые используются обработчиками, нужно использовать атомарные типы. Например, #codebox(lang: "c", "sig_atomic_t").
-
-  - Если участок кода не хочется прерывать, можно временно заблокировать сигналы. Будет аналогично работе мьютекса.
 ]
 
 #slide(background-image: none)[

@@ -46,3 +46,18 @@
   set text(weight: "bold", size: 1.1em)
   raw(lang: lang, type)
 }
+
+#let ub-header = (content) => {
+  place(top, float: true)[
+    #box(
+      inset: (bottom: 20pt, top: 0pt), 
+      outset: (x: 40pt, top: 30pt), 
+      width: 100%, 
+      fill: red.desaturate(80%),
+      stroke: (bottom: 3pt + red.darken(50%))
+      )[
+
+      #content
+    ]
+  ]
+}
