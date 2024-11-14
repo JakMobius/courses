@@ -28,36 +28,3 @@
 
   cetz.draw.catmull(..points, stroke: 2.5pt + red)
 }
-
-#let conpro(color, content) = {
-  set text(fill: white, weight: "black", size: 20pt)
-  box(
-    baseline: 0.5em, width: 1.5em, height: 1.5em, radius: 5pt, fill: color,
-  )[
-    #align(center + horizon)[#content]
-  ]
-  h(0.5em)
-}
-
-#let pro() = conpro(green)[+]
-#let con() = conpro(red)[-]
-
-#let lightcodebox(type, lang: none) = {
-  set text(weight: "bold", size: 1.1em)
-  raw(lang: lang, type)
-}
-
-#let ub-header = (content) => {
-  place(top, float: true)[
-    #box(
-      inset: (bottom: 20pt, top: 0pt), 
-      outset: (x: 40pt, top: 30pt), 
-      width: 100%, 
-      fill: red.desaturate(80%),
-      stroke: (bottom: 3pt + red.darken(50%))
-      )[
-
-      #content
-    ]
-  ]
-}

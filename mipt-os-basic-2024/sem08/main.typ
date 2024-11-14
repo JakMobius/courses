@@ -5,7 +5,7 @@
 #import "../theme/asm.typ": *
 #import "./utils.typ": *
 #import "./3d.typ": *
-#import "../sem07/bubbles.typ": *
+#import "../theme/bubbles.typ": *
 
 #show: theme
 
@@ -682,21 +682,6 @@
     *Проверки могут происходить не сразу.* Это можети привести к #link("https://ru.wikipedia.org/wiki/Проблема_ABA")[*проблеме ABA*].
   ]
 ]
-
-#let ub-header = (content) => {
-  place(top, float: true)[
-    #box(
-      inset: (bottom: 20pt, top: 0pt), 
-      outset: (x: 40pt, top: 30pt), 
-      width: 100%, 
-      fill: red.desaturate(80%),
-      stroke: (bottom: 3pt + red.darken(50%))
-      )[
-
-      #content
-    ]
-  ]
-}
 
 #slide(background: white)[
   == Корректное использование #codebox("condvar")

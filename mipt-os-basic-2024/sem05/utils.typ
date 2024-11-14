@@ -16,18 +16,6 @@
   )
 }
 
-#let conpro(color, content) = {
-  set text(fill: white, weight: "black", size: 20pt)
-  box(
-    baseline: 0.5em, width: 1.5em, height: 1.5em, radius: 5pt, fill: color,
-  )[
-    #align(center + horizon)[#content]
-  ]
-  h(0.5em)
-}
-
-#let pro() = conpro(green)[+]
-#let con() = conpro(red)[-]
 
 #let underline(from, to, line, ..options) = {
 
