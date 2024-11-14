@@ -10,7 +10,7 @@
 
 int main() {
     int port = 80;
-    const char* hostname = "captive.apple.com";
+    const char* hostname = "google.com";
 
     struct hostent *host = gethostbyname(hostname);
     if (host == NULL) {
@@ -38,7 +38,6 @@ int main() {
 
     const char* request = 
         "GET / HTTP/1.1\r\n"
-        "Host: captive.apple.com\r\n"
         "\r\n";
 
     if(write(sock, request, strlen(request)) < 0) {

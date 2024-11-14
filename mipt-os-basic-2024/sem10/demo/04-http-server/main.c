@@ -36,11 +36,11 @@ int main() {
     }
     
     // Установка SO_REUSEADDR (опционально)
-    // const int enable = 1;
-    // if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {
-    //     perror("setsockopt(SO_REUSEADDR)");
-    //     return -1;
-    // }
+    const int enable = 1;
+    if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {
+        perror("setsockopt(SO_REUSEADDR)");
+        return -1;
+    }
 
     // Подключение сокета к адресу 0.0.0.0
     struct sockaddr_in server_address = {};

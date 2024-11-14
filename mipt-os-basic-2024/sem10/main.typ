@@ -793,6 +793,10 @@
       #col_empty("<h1>Hello, World!</h1>")
     ]
   )
+
+  #place(bottom + left, dy: -0.5cm, dx: 0.5cm)[
+    *#link("http.cat")[🔗 http.cat]*
+  ]
 ]
 
 #slide(header: [Сокеты], background-image: none)[
@@ -999,22 +1003,21 @@
       #set text(weight: "bold")
       #code(numbers: true, 
       ```c
-      // Создание сокета
-      sock = socket(AF_INET, SOCK_STREAM, 0);
+      // ...
+
+      struct hostent *host = NULL;
+
+      host = gethostbyname(hostname);
+
+      struct sockaddr_in address = {};
+      address.sin_family = AF_INET;
+      address.sin_port = htons(port);
+      address.sin_addr = *(...*)host->h_addr;
 
       // Подключение сокета к ip-адресу
       connect(sock, (...*)&addr, sizeof(addr));
 
-      // Работа с сокетом
-      read(sock, ...);
-      write(sock, ...);
-
-      // Закрытие подключения
-      shutdown(sock, SHUT_WR); // На запись
-      shutdown(sock, SHUT_RD); // На чтение
-
-      // Закрытие сокета
-      close(sock);
+      // ...
       ```)
     ]
   )
