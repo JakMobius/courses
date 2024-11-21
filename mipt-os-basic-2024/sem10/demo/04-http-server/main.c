@@ -36,8 +36,7 @@ int main() {
     }
     
     // Установка SO_REUSEADDR (опционально)
-    const int enable = 1;
-    if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {
+    if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0) {
         perror("setsockopt(SO_REUSEADDR)");
         return -1;
     }
@@ -74,7 +73,7 @@ int main() {
             "HTTP/1.1 200 OK\r\n"
             "Content-Type: text/html\r\n"
             "\r\n"
-            "<h1>Hello, World!</h1>";
+            "<h1>Hello, ИВТ!</h1>";
         write(connection, message, strlen(message));
 
         // Закрытие соединение на запись со стороны сервера.

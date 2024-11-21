@@ -1,7 +1,7 @@
 
 #include "transmission.h"
 
-#define INTERVAL 5000
+#define INTERVAL 1000
 
 void computer2() {
     while(!read_wire());
@@ -20,7 +20,7 @@ void computer2() {
             break;
         }
 
-        printf("%c", c);
-        // write(STDOUT_FILENO, &c, 1);
+        // printf("%c", c);
+        write(STDOUT_FILENO, &c, 1);
     }
 }

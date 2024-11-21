@@ -1,7 +1,7 @@
 
 #include "transmission.h"
 
-#define INTERVAL 5000
+#define INTERVAL 1000
 
 void computer1() {
     // char* message = "Hello, World!\n";
