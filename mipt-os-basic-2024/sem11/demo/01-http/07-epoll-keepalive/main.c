@@ -119,6 +119,7 @@ int main()
                 int connection = events[i].data.fd;
                 int duplicate = dup(connection);
                 FILE *socket = fdopen(duplicate, "r+");
+                setvbuf(socket, NULL, _IONBF, 0);
                 if (!handle_request(socket))
                 {
                     if (epoll_ctl(epoll_fd, EPOLL_CTL_DEL, connection, &event) == -1)

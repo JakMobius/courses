@@ -67,6 +67,7 @@ int main()
         }
         
         FILE* socket = fdopen(connection, "r+");
+        setvbuf(socket, NULL, _IONBF, 0);
         while(handle_request(socket));
         shutdown(connection, SHUT_WR);
         read_all(connection);

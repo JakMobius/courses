@@ -89,6 +89,7 @@ int main()
         if (pid == 0)
         {
             FILE* socket = fdopen(connection, "r+");
+            setvbuf(socket, NULL, _IONBF, 0);
             handle_request(socket);
             shutdown(connection, SHUT_WR);
             read_all(connection);

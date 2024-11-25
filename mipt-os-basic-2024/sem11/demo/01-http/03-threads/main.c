@@ -16,6 +16,7 @@ void* thread_job(void* arg) {
     int connection = (int)(int64_t)arg;
 
     FILE* socket = fdopen(connection, "r+");
+    setvbuf(socket, NULL, _IONBF, 0);
     if(!socket) {
         perror("fdopen");
         close(connection);

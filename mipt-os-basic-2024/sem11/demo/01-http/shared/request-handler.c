@@ -31,7 +31,6 @@ bool handle_request(FILE* socket) {
     fprintf(socket, "Content-Length: %ld\r\n", strlen(html));
     fprintf(socket, "\r\n");
     fprintf(socket, "%s", html);
-    fflush(socket);
 
     return true;
 }
