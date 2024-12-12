@@ -1,0 +1,26 @@
+# Blender 4.2.3 LTS MTL File: 'None'
+# www.blender.org
+
+newmtl Locomotive.002
+Ka 1.000000 1.000000 1.000000
+Ks 0.010000 0.010000 0.010000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd /Users/artem/Downloads/ikea-lillabo-basic-train-set/source/S_Locomotive/T_S_Locomotive_D.tga
+map_Ns /Users/artem/Downloads/ikea-lillabo-basic-train-set/source/S_Locomotive/T_S_Locomotive_R.tga
+map_refl /Users/artem/Downloads/ikea-lillabo-basic-train-set/source/S_Locomotive/T_S_Locomotive_M.tga
+map_Bump -bm 1.000000 /Users/artem/Downloads/ikea-lillabo-basic-train-set/source/S_Locomotive/T_S_Locomotive_N.tga
+
+newmtl WEEL_Low.004
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd /Users/artem/Downloads/ikea-lillabo-basic-train-set/source/Weels/T_WEEL_Red_D.tga
+map_Ks /Users/artem/Downloads/ikea-lillabo-basic-train-set/source/Weels/T_WEEL Low_S.tga
+map_Ns /Users/artem/Downloads/ikea-lillabo-basic-train-set/source/Weels/T_WEEL Low_R.tga
+map_refl /Users/artem/Downloads/ikea-lillabo-basic-train-set/source/Weels/T_WEEL Low_M.tga
+map_Bump -bm 1.000000 /Users/artem/Downloads/ikea-lillabo-basic-train-set/source/Weels/T_WEEL Low_N.tga
