@@ -36,7 +36,7 @@
     )[
       🔗 #link(
         "https://github.com/JakMobius/courses/tree/mipt-os-basic-2025/",
-      )[*github.com/JakMobius/courses/tree/mipt-os-basic-2025/*]
+      )[ *github.com/JakMobius/courses/tree/mipt-os-basic-2025* ]
     ]
   ]
 ]
