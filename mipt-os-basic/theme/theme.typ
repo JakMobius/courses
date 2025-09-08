@@ -202,7 +202,7 @@
 
 #let codebox(lang: none, prefix: none, content) = {
   box(
-    baseline: 5pt + 0.1em,
+    baseline: 1.5pt + 0.1em,
     inset: (x: 2pt + 0.2em, y: 1.5pt + 0.1em),
     outset: (x: 0pt, y: 1.5pt + 0.1em),
     radius: 5pt,
