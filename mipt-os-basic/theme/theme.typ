@@ -216,6 +216,7 @@
     #set raw(theme: "../theme/halcyon.tmTheme")
     #raw(lang: lang, content)
   ]
+  h(0.1em)
 }
 
 #let bash(code) = codebox(lang: "bash", prefix: text(fill: green)[`$`], code)

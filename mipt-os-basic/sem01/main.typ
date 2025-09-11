@@ -114,14 +114,14 @@
 #slide(header: [Общие утилиты], place-location: horizon)[
   #set par(spacing: 14pt)
 
-  - #bash("man") : мануалы по чему угодно;
+  - #bash("man"): мануалы по чему угодно;
 
-    - #bash("man man") : мануалы по мануалам;
-  - #bash("touch") : создать файл;
-  - #bash("mkdir") : создать директорию;
-  - #bash("pwd") : вывести текущую директорию.
-  - #bash("cd") : сменить директорию;
-  - #bash("ls") : вывести содержимое директории.
+    - #bash("man man"): мануалы по мануалам;
+  - #bash("touch"): создать файл;
+  - #bash("mkdir"): создать директорию;
+  - #bash("pwd"): вывести текущую директорию.
+  - #bash("cd"): сменить директорию;
+  - #bash("ls"): вывести содержимое директории.
 ]
 
 #slide(
@@ -129,23 +129,25 @@
 )[
   #set par(spacing: 14pt)
 
-  - #bash("nano") , #bash("micro") , #bash("vim") , #bash("emacs") : редакторы
+  - #bash("nano"), #bash("micro"), #bash("vim"), #bash("vi"), #bash("ed"), #bash("emacs"): редакторы
     текста;
-  - #bash("less") : быстрая навигация по файлу;
-  - #bash("cat") : вывести содержимое файла;
-  - #bash("grep") : найти какой-то текст в файле (директории);
-  - #bash("find") : искать файлы по имени / дате создания / ...;
-  - #bash("mv") : переместить / переименовать файл;
-  - #bash("rm") : удалить файл / директорию.
+  - #bash("less"): быстрая навигация по файлу;
+  - #bash("cat"): вывести содержимое файла;
+  - #bash("grep"): поиск файлов по содержимому;
+  - #bash("find"): искать файлы по имени / дате создания / ...;
+  - #bash("mv"): переместить / переименовать файл;
+  - #bash("cp"): скопировать файл;
+  - #bash("rm"): удалить файл / директорию.
+  - #bash("mc"): Midnight Commander, для любителей TUI.
 ]
 
 #slide(header: [Что делает нас программистами], place-location: horizon)[
   #set par(spacing: 14pt)
 
-  - #bash("gcc") , #bash("clang") : компиляторы;
-  - #bash("gdb") , #bash("lldb") : отладчики;
-  - #bash("ld") : компоновщик;
-  - #bash("strace") : перехватчик системных вызовов.
+  - #bash("gcc"), #bash("clang"): компиляторы;
+  - #bash("gdb"), #bash("lldb"): отладчики;
+  - #bash("ld"): компоновщик;
+  - #bash("strace"): перехватчик системных вызовов.
 ]
 
 #focus-slide[
@@ -260,9 +262,9 @@
 
   Чтобы понять, как запускать файл, Linux смотрит на его начало:
 
-  - #codebox("0x7f 0x45 0x4c 0x46") : магический заголовок ELF-файла;
+  - #codebox("0x7f 0x45 0x4c 0x46"): магический заголовок ELF-файла;
 
-  - #codebox("#!/usr/bin/python3") : shebang, указывает на интерпретатор;
+  - #codebox("#!/usr/bin/python3"): shebang, указывает на интерпретатор;
 
   - Ни то, ни другое - файл запускается как шелл-скрипт.
 ]
@@ -276,7 +278,7 @@
 
   #let rows = formats.map(
     line => (
-      text(font: "Monaco")[#line.at(0)], line.at(1).split(", ").map(code => codebox(code)).join(" , "),
+      text(font: "Monaco")[#line.at(0)], line.at(1).split(", ").map(code => codebox(code)).join(", "),
     ),
   ).flatten()
 
@@ -399,14 +401,14 @@
   #set par(spacing: 14pt)
   - Запуск отладочной консоли: #bash("gdb ./a.out");
 
-    - #codebox(lang: "bash", "run") : запустить программу;
-    - #codebox(lang: "bash", "break <where>") : поставить точку останова;
-    - #codebox(lang: "bash", "next") : выполнить следующую строку;
-    - #codebox(lang: "bash", "step") : войти в процедуру;
-    - #codebox(lang: "bash", "print <expression>") : вывести значение выражения;
-    - #codebox(lang: "bash", "quit") : выйти из gdb.
+    - #codebox(lang: "bash", "run"): запустить программу;
+    - #codebox(lang: "bash", "break <where>"): поставить точку останова;
+    - #codebox(lang: "bash", "next"): выполнить следующую строку;
+    - #codebox(lang: "bash", "step"): войти в процедуру;
+    - #codebox(lang: "bash", "print <expression>"): вывести значение выражения;
+    - #codebox(lang: "bash", "quit"): выйти из gdb.
   #let prefixes = ("r", "b", "n", "p", "q")
-  - Команды можно сокращать: (#prefixes.map(p => codebox(p)).join(" , "));
+  - Команды можно сокращать: (#prefixes.map(p => codebox(p)).join(", "));
   - #link(
       "https://darkdust.net/files/GDB%20Cheat%20Sheet.pdf",
     )[🔗 *GDB cheat-sheet*].
@@ -420,11 +422,11 @@
   - Запуск программы с помощью strace: #bash("strace ./a.out");
   - Основные команды:
 
-    - #bash("strace -e trace=open,exec,... ./a.out") : фильтрация системных вызовов;
-    - #bash("strace -e trace=%file ./a.out") : отслеживать только работу с файлами;
-    - #bash("strace -p <pid>") : подключиться к уже запущенному процессу;
-    - #bash("strace -o output.txt ./a.out") : сохранить вывод в файл;
-    - #bash("strace -c ./a.out") : собрать статистику по системным вызовам;
+    - #bash("strace -e trace=open,exec,... ./a.out"): фильтрация системных вызовов;
+    - #bash("strace -e trace=%file ./a.out"): отслеживать только работу с файлами;
+    - #bash("strace -p <pid>"): подключиться к уже запущенному процессу;
+    - #bash("strace -o output.txt ./a.out"): сохранить вывод в файл;
+    - #bash("strace -c ./a.out"): собрать статистику по системным вызовам;
 
   - #link("https://strace.io/")[🔗 *Strace docs*]
 ]
@@ -529,20 +531,20 @@
     *#colbox(color: red)[Минусы:]*
 
     - Доступен только в #bash("clang");
-    - Использует #codebox("ptrace()") $=>$ не работает под дебаггером, под #bash("strace") , и в некоторых контейнерах.
+    - Использует #codebox("ptrace()") $=>$ не работает под дебаггером, под #bash("strace"), и в некоторых контейнерах.
   ]
 ]
 
 #slide(
   header: [#codebox("-fsanitize=")]
 )[
-  - #codebox("address") : поиск ошибок использования памяти (переполнения, use-after-free, ...);
-  - #codebox("thread") : поиск гонок;
-  - #codebox("undefined") : поиск неопределённого поведения;
-  - #codebox("memory") : поиск использования неинициализированной памяти;
-  - #codebox("leak") : поиск утечек памяти.
+  - #codebox("address"): поиск ошибок использования памяти (переполнения, use-after-free, ...);
+  - #codebox("thread"): поиск гонок;
+  - #codebox("undefined"): поиск неопределённого поведения;
+  - #codebox("memory"): поиск использования неинициализированной памяти;
+  - #codebox("leak"): поиск утечек памяти.
 
-  #colbox(color: red)[⚠️] : *Не все санитайзеры совместимы друг с другом*
+  #colbox(color: red)[⚠️]: *Не все санитайзеры совместимы друг с другом*
 ]
 
 #focus-slide[
