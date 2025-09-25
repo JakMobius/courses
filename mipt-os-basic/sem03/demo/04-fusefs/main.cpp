@@ -99,11 +99,11 @@ static int read_handler(const char *path, char *buf, size_t size, off_t offset,
 }
 
 static const struct fuse_operations hello_oper = {
-    .init = init_handler,
     .getattr = getattr_handler,
-    .readdir = readdir_handler,
     .open = open_handler,
     .read = read_handler,
+    .readdir = readdir_handler,
+    .init = init_handler,
 };
 
 int main(int argc, char *argv[]) {
