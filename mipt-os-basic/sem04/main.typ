@@ -647,7 +647,7 @@
         cetz.draw.bezier((15, -10), (19, -7.5), (19, -10))
         cetz.draw.content((8.5, -9.5), (22.5, -11.5), [
           #set align(left)
-          #set block(spacing: 10pt)
+          #set par(spacing: 10pt)
           Так можно,
 
           но закончатся регистры
@@ -655,7 +655,7 @@
       })
     ]
   ]
-  #place(center + bottom)[
+  #place(center + bottom, dy: -20pt)[
     #set text(size: 20pt)
     #super[\*] И здесь, сдвиг не всегда будет 5 байт
   ]
