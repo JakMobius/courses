@@ -6,6 +6,9 @@
 #include <unistd.h>
 #include <assert.h>
 #include <pthread.h>
+#include "fib.h"
+#include "sort.h"
+#include "image.h"
 
 #define WIDTH 600
 #define HEIGHT 700
@@ -79,6 +82,7 @@ void initVulkan() {
     createInfo.pApplicationInfo = &appInfo;
     createInfo.enabledExtensionCount = glfwExtensionCount;
     createInfo.ppEnabledExtensionNames = glfwExtensions;
+    createInfo.flags = VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
 
     if (vkCreateInstance(&createInfo, NULL, &instance) != VK_SUCCESS) {
         printf("Failed to create instance!\n");
@@ -397,9 +401,6 @@ void cleanup() {
     glfwTerminate();
 }
 
-void* imageMain(void* arg);
-void* sortMain(void* arg);
-void* fibMain(void* arg);
 void* threadMain(void* arg);
 
 void createThread() {
@@ -454,6 +455,6 @@ int main() {
 
 void* threadMain(void* arg) {
     // return fibMain(arg);
-    return sortMain(arg);
-    // return imageMain(arg);
+    // return sortMain(arg);
+    return imageMain(arg);
 }

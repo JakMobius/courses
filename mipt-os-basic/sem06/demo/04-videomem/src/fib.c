@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <time.h>
+#include "fib.h"
 
 void setStackColor(volatile int* ptr, int size, int color) {
     for(int i = 0; i < size; i++) {

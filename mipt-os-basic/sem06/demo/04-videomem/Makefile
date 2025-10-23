@@ -8,7 +8,7 @@ export PKG_CONFIG_PATH=$(VCPKG_INSTALLED)/$(PLATFORM)/lib/pkgconfig:$(VCPKG_INST
 
 export VK_LOADER_LAYERS_ENABLE="*validation"
 
-CC_SRC=$(wildcard *.c)
+CC_SRC=$(wildcard src/*.c)
 
 # Осторожно: macOS-specific:
 PLATFORM=arm64-osx
@@ -21,7 +21,7 @@ FRAMEWORKS=\
 .PHONY: run clean
 
 a.out: $(CC_SRC) $(VCPKG_ROOT)/vcpkg-libs
-	gcc $(CFLAGS) $(LDFLAGS) $(FRAMEWORKS) -g -lvulkan -lglfw3 -fsanitize=address $(CC_SRC)
+	gcc $(CFLAGS) $(LDFLAGS) $(FRAMEWORKS) -O3 -g -lvulkan -lglfw3 -fsanitize=address $(CC_SRC)
 
 run: a.out
 	@./a.out; echo Код возврата: $$?
