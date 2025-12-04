@@ -2,9 +2,13 @@
 
 void start_eating(philosopher_t *philosopher)
 {
-    // TODO: fix the deadlock
-    capture_left_fork(philosopher);
-    capture_right_fork(philosopher);
+    if (philosopher->id % 2 == 0) {
+        capture_right_fork(philosopher);
+        capture_left_fork(philosopher);
+    } else {
+        capture_left_fork(philosopher);
+        capture_right_fork(philosopher);
+    }
 }
 
 void stop_eating(philosopher_t *philosopher)

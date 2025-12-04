@@ -10,21 +10,21 @@
 
 char MESSAGE[256] = {};
 
-int thread1() {
-	while(true) strcpy(MESSAGE, "....................");
-}
-
-int thread2() {
-    while(true) strcpy(MESSAGE, "@@@@@@@@@@@@@@@@@@@@");
-}
-
 // int thread1() {
-//     while(true) strcpy(MESSAGE, "McDonalds rules!");
+// 	while(true) strcpy(MESSAGE, "....................");
 // }
 
 // int thread2() {
-// 	while(true) strcpy(MESSAGE, "Burger King tastes better!");
+//     while(true) strcpy(MESSAGE, "@@@@@@@@@@@@@@@@@@@@");
 // }
+
+int thread1() {
+    while(true) strcpy(MESSAGE, "McDonalds rules!");
+}
+
+int thread2() {
+	while(true) strcpy(MESSAGE, "Burger King tastes better!");
+}
 
 int thread3() {
 	for(int i = 0; i < 1000000; i++) {

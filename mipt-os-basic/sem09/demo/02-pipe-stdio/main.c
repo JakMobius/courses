@@ -20,7 +20,7 @@ int main()
         dup2(pipefd[0], STDIN_FILENO); // - Подключаем STDIN к концу канала;
         char buffer[32] = {};          //
         scanf("%31s", buffer);         // - Читаем STDIN (канал);
-        printf("Received %s", buffer); // - "Received Friendly message\n";
+        printf("Received %s\n", buffer); // - "Received Friendly message\n";
     }
 
     close(pipefd[0]); // Дескрипторы каналов тоже нужно закрывать
