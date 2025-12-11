@@ -20,7 +20,7 @@ void computer2() {
             break;
         }
 
-        // printf("%c", c);
-        write(STDOUT_FILENO, &c, 1);
+        printf("%c", c);
+        // write(STDOUT_FILENO, &c, 1);
     }
 }
